@@ -1,7 +1,6 @@
 /**
  * COMPASSION OF JESUS GLOBAL MISSION, ILORIN - SERMONS DATASET
- * Hosted on Archive.org (Direct MP3 Streaming & Direct Downloads, Zero Virus Warning Popups!).
- * Contains all 26 real church audio messages.
+ * Powered by Fastly Global CDN (GitHub Releases) for Instant 0-Lag Streaming & Fast Downloads!
  */
 
 const sermonsData = [
@@ -15,9 +14,8 @@ const sermonsData = [
     series: "Kingdom Elevation",
     scripture: "Exodus 14:15",
     duration: "48:20",
-    downloads: 3420,
     description: "An inspiring message on pressing forward beyond limitations into God's planned elevation for your life and destiny.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Moving%20Forward%20and%20Upward%20by%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Moving.Forward.and.Upward.by.Pastor.Godwin.Adunmo.mp3",
     featured: true
   },
   {
@@ -30,9 +28,8 @@ const sermonsData = [
     series: "Heart of Gratitude",
     scripture: "Psalm 100:4",
     duration: "42:15",
-    downloads: 2890,
     description: "Understanding the spiritual key of thanksgiving that unlocks continuous divine multiplication and presence.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Thanksgiving%20By%20Pastor%20Dolapo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Thanksgiving.By.Pastor.Dolapo.mp3",
     featured: false
   },
   {
@@ -45,9 +42,8 @@ const sermonsData = [
     series: "Spiritual Warfare",
     scripture: "Psalm 24:8",
     duration: "54:30",
-    downloads: 3100,
     description: "A profound sermon on relying on God as the invincible warrior who fights and secures victory in all life battles.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Might%20One%20in%20Battle%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Might.One.in.Battle.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -60,9 +56,8 @@ const sermonsData = [
     series: "Intimacy with God",
     scripture: "Psalm 91:1",
     duration: "45:10",
-    downloads: 2450,
     description: "Deep spiritual insights on cultivating private prayer, quiet devotion, and abiding under the shadow of the Almighty.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Secret%20Place%20by%20Pastor%20Dolapo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Secret.Place.by.Pastor.Dolapo.mp3",
     featured: false
   },
   {
@@ -75,9 +70,8 @@ const sermonsData = [
     series: "Divine Healing",
     scripture: "Exodus 15:26",
     duration: "50:45",
-    downloads: 3800,
     description: "Unpacking Jehovah Rapha as the eternal restorer of body, mind, soul, and spirit.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/God%20our%20Healer%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/God.our.Healer.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -90,9 +84,8 @@ const sermonsData = [
     series: "Divine Restoration",
     scripture: "Joel 2:25",
     duration: "52:00",
-    downloads: 3650,
     description: "Prophetic revelation on God restoring lost years, wasted health, broken joy, and stolen spiritual blessings.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/God%20our%20Restorer%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/God.our.Restorer.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -105,9 +98,8 @@ const sermonsData = [
     series: "Christian Love & Unity",
     scripture: "1 John 3:14",
     duration: "1h 15m",
-    downloads: 4120,
     description: "A heart-searching sermon on restoring true brotherly love, unity, and genuine fellowship within the body of Christ.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Are%20we%20still%20Brethren%20%28Pastor%20Godwin%20Adunmo%29.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Are.we.still.Brethren.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -120,9 +112,8 @@ const sermonsData = [
     series: "Holy Spirit & Miracles",
     scripture: "Revelation 3:7",
     duration: "58:30",
-    downloads: 2950,
     description: "Understanding how Jesus, operating through the power of the Holy Spirit, opens doors that no man can shut.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Jesus%20The%20Key%20That%20Opens%20Every%20Door%20Through%20the%20Manifestation%20of%20the%20Holy%20Spirit%20%28By%20Minister%20Gbenga%20Sogbesan%29.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Jesus.The.Key.That.Opens.Every.Door.Through.the.Manifestation.of.the.Holy.Spirit.By.Minister.Gbenga.Sogbesan.mp3",
     featured: false
   },
   {
@@ -135,9 +126,8 @@ const sermonsData = [
     series: "Kingdom Wisdom",
     scripture: "Proverbs 13:20",
     duration: "47:15",
-    downloads: 3300,
     description: "Crucial guidance on choosing divine relationships, associations, and mentorship for fulfilling your destiny.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Impact%20of%20Relationships%20in%20Life%20and%20Destiny%20by%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Impact.of.Relationships.in.Life.and.Destiny.by.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -150,9 +140,8 @@ const sermonsData = [
     series: "Sowing & Reaping",
     scripture: "Galatians 6:7",
     duration: "49:40",
-    downloads: 2750,
     description: "Biblical laws of spiritual seedtime and harvest for experiencing financial, spiritual, and relational fruitfulness.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Principle%20of%20Harvest%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Principle.of.Harvest.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -165,9 +154,8 @@ const sermonsData = [
     series: "Mysteries of the Kingdom",
     scripture: "Ephesians 3:14-15",
     duration: "53:10",
-    downloads: 2600,
     description: "Understanding God as Father, spiritual fatherhood, and inheriting the covenant promises of God.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Mystery%20of%20the%20Kingdom%20IV%20%28The%20Mystery%20of%20Fatherhood%29%20by%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Mystery.of.the.Kingdom.IV.The.Mystery.of.Fatherhood.by.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -180,9 +168,8 @@ const sermonsData = [
     series: "Mysteries of the Kingdom",
     scripture: "Romans 8:11",
     duration: "51:20",
-    downloads: 2900,
     description: "Unveiling the quickening power of the resurrection spirit that resurrects dead dreams, health, and spiritual life.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Mystery%20of%20the%20Kingdom%20IV%20%28The%20Mystery%20of%20the%20Resurrection%29%20by%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Mystery.of.the.Kingdom.IV.The.Mystery.of.the.Resurrection.by.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -195,9 +182,8 @@ const sermonsData = [
     series: "Mysteries of the Kingdom",
     scripture: "Ephesians 1:3",
     duration: "56:00",
-    downloads: 3050,
     description: "Deep study into the spiritual mechanisms of kingdom blessings and walking in divine abundance.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Mystery%20of%20the%20Kingdom%20V%20%28Unveling%20the%20Mystery%20of%20God%27s%20Kingdom%20Blessings%29%20by%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Mystery.of.the.Kingdom.V.Unveling.the.Mystery.of.God.s.Kingdom.Blessings.by.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -210,9 +196,8 @@ const sermonsData = [
     series: "Mysteries of the Kingdom",
     scripture: "Galatians 2:20",
     duration: "48:50",
-    downloads: 2400,
     description: "The power of the cross, dying to self, and walking in the unyielding victory of Christ's finished work.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Mystery%20of%20the%20Kingdom%20III%20%28The%20Mystery%20of%20the%20Crucifixion%29%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Mystery.of.the.Kingdom.III.The.Mystery.of.the.Crucifixion.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -225,9 +210,8 @@ const sermonsData = [
     series: "Mysteries of the Kingdom",
     scripture: "Romans 8:14",
     duration: "50:15",
-    downloads: 2650,
     description: "Shifting from the mindset of servants to walking in the rights, inheritance, and authority of sons of God.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Mystery%20of%20the%20Kingdom%20II%20%28The%20Mystery%20Sonship%29%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Mystery.of.the.Kingdom.II.The.Mystery.Sonship.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -240,9 +224,8 @@ const sermonsData = [
     series: "Mysteries of the Kingdom",
     scripture: "Exodus 12:13",
     duration: "52:40",
-    downloads: 2800,
     description: "Understanding the blood covenant of protection, deliverance, and immunity from evil.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Mystery%20of%20the%20Kingdom%20I%20%28The%20Mystery%20of%20the%20Passover%29%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Mystery.of.the.Kingdom.I.The.Mystery.of.the.Passover.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -255,9 +238,8 @@ const sermonsData = [
     series: "Kingdom Secrets",
     scripture: "Deuteronomy 29:29",
     duration: "46:30",
-    downloads: 3500,
     description: "Discovering divine secrets and spiritual principles that guarantee outstanding success and distinction.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Accessing%20God%27s%20secret%20for%20success%20by%20Pastor%20%28Dr%29%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Accessing.God.s.secret.for.success.by.Pastor.Dr.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -270,9 +252,8 @@ const sermonsData = [
     series: "Expansion & Growth",
     scripture: "Hosea 10:12",
     duration: "44:50",
-    downloads: 2100,
     description: "Breaking up fallow ground, overcoming stagnation, and launching into new territories of impact.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Breaking%20Forth%20New%20Ground_05-02-26_15-18-05-649.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Breaking.Forth.New.Ground_05-02-26_15-18-05-649.mp3",
     featured: false
   },
   {
@@ -285,9 +266,8 @@ const sermonsData = [
     series: "Spiritual Perception",
     scripture: "Hebrews 5:14",
     duration: "47:20",
-    downloads: 2350,
     description: "Developing spiritual sensitivity to discern God's voice, avoid traps, and make spirit-led decisions.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Discernment%20By%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Discernment.By.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -300,9 +280,8 @@ const sermonsData = [
     series: "Covenant Rights",
     scripture: "Hebrews 8:6",
     duration: "49:10",
-    downloads: 2700,
     description: "Enforcing your spiritual rights and privileges under the superior blood of Jesus.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Enforcing%20the%20New%20Covenant%20%28Pastor%20Godwin%20Adunmo%29.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Enforcing.the.New.Covenant.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -315,9 +294,8 @@ const sermonsData = [
     series: "Divine Healing",
     scripture: "3 John 1:2",
     duration: "41:30",
-    downloads: 1980,
     description: "Understanding bodily health and divine healing as the rightful covenant bread of God's children.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Healing%20as%20a%20blessing%20from%20God%20%28Pastor%20Dolapo%29.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Healing.as.a.blessing.from.God.Pastor.Dolapo.mp3",
     featured: false
   },
   {
@@ -330,9 +308,8 @@ const sermonsData = [
     series: "Gospel Miracles",
     scripture: "John 2:1-11",
     duration: "43:15",
-    downloads: 2150,
     description: "When Jesus turns shame into honor, shortage into abundance, and reserves the best for last.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/miracle%20at%20Cana%20of%20Galilee%20.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/miracle.at.Cana.of.Galilee.mp3",
     featured: false
   },
   {
@@ -345,9 +322,8 @@ const sermonsData = [
     series: "Faith Over Fear",
     scripture: "Mark 4:39",
     duration: "48:00",
-    downloads: 3200,
     description: "Speaking peace to turbulent life circumstances through the authority of faith and the word of God.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Overcoming%20the%20storms%20of%20Life%20%28Pastor%20Godwin%20Adunmo%29.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Overcoming.the.storms.of.Life.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -360,9 +336,8 @@ const sermonsData = [
     series: "Wisdom for Living",
     scripture: "Ecclesiastes 10:10",
     duration: "45:40",
-    downloads: 2500,
     description: "Applying divine wisdom for practical life choices, career growth, time management, and profitable living.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Profitable%20living%20by%20wisdom%20%28Pastor%20Godwin%20Adunmo%29.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Profitable.living.by.wisdom.Pastor.Godwin.Adunmo.mp3",
     featured: false
   },
   {
@@ -375,9 +350,8 @@ const sermonsData = [
     series: "Kingdom Excellence",
     scripture: "Daniel 6:3",
     duration: "40:20",
-    downloads: 1850,
     description: "Cultivating an excellent spirit in work, ministry, academics, and personal character for God's glory.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/The%20Pursuit%20of%20Excellence.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The.Pursuit.of.Excellence.mp3",
     featured: false
   },
   {
@@ -390,9 +364,8 @@ const sermonsData = [
     series: "Triumphant Living",
     scripture: "2 Corinthians 2:14",
     duration: "52:10",
-    downloads: 3100,
     description: "Walking in perpetual victory in all seasons and transitions of life through Christ who always causes us to triumph.",
-    driveUrl: "https://archive.org/download/cjgm_audio_archive/Triumphing%20in%20all%20phases%20of%20life%20by%20Pastor%20Godwin%20Adunmo.mp3",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Triumphing.in.all.phases.of.life.by.Pastor.Godwin.Adunmo.mp3",
     featured: false
   }
 ];
