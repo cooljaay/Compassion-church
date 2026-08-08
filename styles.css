@@ -275,6 +275,38 @@ body {
   text-align: center;
 }
 
+/* 📋 FLOATING TOAST NOTIFICATION */
+.toast-notification {
+  position: fixed;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: #18181b;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2100;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+body.dark .toast-notification {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
 /* Hero Section */
 .hero {
   padding: 48px 0 32px 0;

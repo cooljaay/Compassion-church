@@ -1,11 +1,11 @@
 /**
  * COMPASSION OF JESUS GLOBAL MISSION, ILORIN - APPLICATION LOGIC
  * Features: 
- * - Hamburger Navigation Drawer (Home, Messages, Service Times, Location, Contact)
+ * - OpenGraph Social Sharing Card Engine
+ * - Toast Notification System
+ * - Hamburger Navigation Drawer
  * - Floating In-Page Audio Player
- * - WhatsApp & Direct Copy Link Share Handler
- * - Pastor / Speaker Quick Filters
- * - Recent Uploads & A - Z Sorting Engine
+ * - Fastly Global CDN 0-Lag Audio Streaming
  */
 
 // Global App State
@@ -23,6 +23,22 @@ document.addEventListener("DOMContentLoaded", () => {
   renderFeaturedSermon();
   renderSermonGrid();
 });
+
+/**
+ * 📋 TOAST NOTIFICATION CONTROLLER
+ */
+function showToast(message) {
+  const toast = document.getElementById("toastNotification");
+  const toastText = document.getElementById("toastText");
+  if (!toast || !toastText) return;
+
+  toastText.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
 
 /**
  * 🍔 HAMBURGER NAVIGATION DRAWER CONTROLLER
@@ -97,12 +113,12 @@ function handleSpeaker(speaker, btnElement) {
 }
 
 /**
- * GOOGLE DRIVE / ARCHIVE.ORG LINK RESOLVER
+ * GOOGLE DRIVE / ARCHIVE.ORG / FASTLY CDN LINK RESOLVER
  */
 function getDriveUrls(driveUrl) {
   if (!driveUrl) return { downloadUrl: "", listenTabUrl: "" };
 
-  if (driveUrl.includes("archive.org") || driveUrl.endsWith(".mp3")) {
+  if (driveUrl.includes("github.com") || driveUrl.includes("archive.org") || driveUrl.endsWith(".mp3")) {
     return {
       downloadUrl: driveUrl,
       listenTabUrl: driveUrl
@@ -174,7 +190,7 @@ function closePlayer() {
 }
 
 /**
- * 📲 SHARE SERMON HANDLER (WhatsApp & Copy Link)
+ * 📲 SHARE SERMON HANDLER (WhatsApp & Copy Link Toast)
  */
 function shareSermon(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
@@ -182,6 +198,8 @@ function shareSermon(sermonId) {
 
   const pageUrl = window.location.href;
   const shareText = `Listen to this powerful sermon: "${sermon.title}" by ${sermon.speaker} (${sermon.scripture}) on Compassion of Jesus Global Mission Audio Library! 🎧\n\n`;
+
+  showToast("Opening WhatsApp to share sermon...");
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + pageUrl)}`;
   window.open(whatsappUrl, "_blank");
@@ -194,6 +212,7 @@ function triggerDownload(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
   if (!sermon) return;
 
+  showToast("Starting MP3 download...");
   const urls = getDriveUrls(sermon.driveUrl);
   window.open(urls.downloadUrl, "_blank");
 }
