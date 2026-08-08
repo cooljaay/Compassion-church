@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CJGM, Ilorin Messages | Compassion of Jesus Global Mission (cjgmmessages.com)</title>
+  <meta name="description" content="Official church audio message library for Compassion of Jesus Global Mission, Ilorin. Stream and download weekly sermons for free.">
+  <meta name="theme-color" content="#fffcf9" id="metaThemeColor">
+
+  <!-- Google Fonts: Poppins (Matching Shutter.ng) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="homeSection">
+
+  <!-- Top Navigation Header -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#homeSection" class="brand">
+        <!-- Top Left Church Logo -->
+        <img src="logo.png" alt="Compassion of Jesus Global Mission Logo" class="brand-logo-img">
+        <div>
+          <div class="brand-title" id="brandTitle">Compassion of Jesus Global Mission</div>
+          <div class="brand-subtitle">Ilorin</div>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light / Dark Mode">
+          <i class="ph ph-moon" id="themeIcon"></i>
+        </button>
+
+        <!-- 🍔 Hamburger Menu Button -->
+        <button class="hamburger-btn" onclick="toggleDrawer(true)" title="Open Menu">
+          <i class="ph ph-list"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🍔 Navigation Side Drawer & Overlay -->
+  <div class="nav-drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
+  <aside class="nav-drawer" id="navDrawer">
+    <div>
+      <div class="drawer-header">
+        <div class="drawer-title"><i class="ph ph-church" style="color: var(--brand-red);"></i> CJGM Navigation</div>
+        <button class="drawer-close-btn" onclick="toggleDrawer(false)" title="Close Menu">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+
+      <ul class="drawer-nav-list">
+        <li>
+          <a href="#homeSection" class="drawer-nav-link" onclick="toggleDrawer(false)">
+            <i class="ph ph-house"></i> Home
+          </a>
+        </li>
+        <li>
+          <a href="#messagesSection" class="drawer-nav-link" onclick="toggleDrawer(false)">
+            <i class="ph ph-headphones"></i> Messages Archive
+          </a>
+        </li>
+        <li>
+          <a href="#serviceTimesSection" class="drawer-nav-link" onclick="toggleDrawer(false)">
+            <i class="ph ph-clock"></i> Service Times
+          </a>
+        </li>
+        <li>
+          <a href="#locationSection" class="drawer-nav-link" onclick="toggleDrawer(false)">
+            <i class="ph ph-map-pin"></i> Location & Venue
+          </a>
+        </li>
+        <li>
+          <a href="#contactSection" class="drawer-nav-link" onclick="toggleDrawer(false)">
+            <i class="ph ph-phone"></i> Contact Us
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      <strong>Compassion of Jesus Global Mission</strong><br>
+      <em>"Go Ye Into All The World"</em>
+    </div>
+  </aside>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="container">
+      
+      <div class="hero-motto-badge">
+        <i class="ph ph-globe-hemisphere-east"></i> GO YE INTO ALL THE WORLD
+      </div>
+      <h1 class="hero-title" id="heroTitle">CJGM, Ilorin Messages</h1>
+      <p class="hero-subtitle" id="heroSubtitle">
+        Listen online or download audio messages from Compassion of Jesus Global Mission, Ilorin.
+      </p>
+
+      <!-- Search & Sorting Controls -->
+      <div class="controls-card">
+        <div class="controls-top-row">
+          <div class="search-box">
+            <i class="ph ph-magnifying-glass search-icon"></i>
+            <input 
+              type="text" 
+              id="searchInput" 
+              class="search-input" 
+              placeholder="Search by sermon title, pastor, scripture (e.g., Mark, Commission, Prayer)..."
+              oninput="handleSearch(this.value)"
+              onkeyup="handleSearch(this.value)"
+            >
+          </div>
+
+          <!-- Simplified Sort Selector -->
+          <div class="sort-box">
+            <span class="sort-label"><i class="ph ph-arrows-down-up"></i> Sort:</span>
+            <select id="sortSelect" class="sort-select" title="Sort Sermons" onchange="handleSort(this.value)">
+              <option value="date-desc">📅 Recent Uploads</option>
+              <option value="title-asc">🔤 A – Z</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Category & Pastor Speaker Filters -->
+        <div class="filter-tags" id="speakerFilterTags">
+          <button class="tag-btn active" onclick="handleSpeaker('All', this)">All Speakers</button>
+          <button class="tag-btn" onclick="handleSpeaker('Pastor Godwin Adunmo', this)">Pastor Godwin Adunmo</button>
+          <button class="tag-btn" onclick="handleSpeaker('Pastor Dolapo', this)">Pastor Dolapo</button>
+          <button class="tag-btn" onclick="handleSpeaker('Minister Gbenga Sogbesan', this)">Minister Gbenga</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+    
+    <!-- Most Recent Message Banner -->
+    <div id="featuredSermonContainer"></div>
+
+    <!-- All Sermons Grid Section -->
+    <section id="messagesSection">
+      <div class="section-title-bar">
+        <h2 class="section-title">
+          <i class="ph ph-headphones section-title-icon"></i> Sermon Archives
+        </h2>
+        <span class="page-count-badge" id="pageCountBadge">Showing 1 – 9 of 26</span>
+      </div>
+      
+      <div class="sermon-grid" id="sermonsGrid">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+
+      <!-- 📄 Sleek Page-by-Page Pagination Bar -->
+      <div class="pagination-container" id="paginationContainer">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+    </section>
+
+    <!-- 📍 Church Invitation Card Above Footer -->
+    <section class="invitation-card" id="locationSection">
+      <span class="invitation-badge"><i class="ph ph-church"></i> Worship With Us</span>
+      <h2 class="invitation-title">Join Us In Person This Week!</h2>
+      <p class="invitation-text">
+        Experience powerful worship, transformative teachings, and divine fellowship at Compassion of Jesus Global Mission, Ilorin.
+      </p>
+      <div class="invitation-details">
+        <span class="invitation-detail-item"><i class="ph ph-map-pin" style="color: var(--brand-red);"></i> Cucumber Guest House, Saw Mill, Ilorin</span>
+        <span class="invitation-detail-item"><i class="ph ph-clock" style="color: var(--brand-blue);"></i> Sundays: 8:00 AM | Wednesdays: 5:00 PM</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 🎶 FLOATING BOTTOM IN-PAGE AUDIO PLAYER BAR -->
+  <div id="floatingPlayerContainer"></div>
+
+  <!-- Footer -->
+  <footer class="footer" id="contactSection">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Compassion of Jesus Global Mission</h3>
+          <p>Motto: <em>"Go Ye Into All The World"</em></p>
+          <span class="footer-domain-badge"><i class="ph ph-globe"></i> cjgmmessages.com</span>
+        </div>
+        <div id="serviceTimesSection">
+          <h4 class="footer-title">Service Times</h4>
+          <ul class="footer-list" id="serviceTimesList">
+            <!-- Dynamically populated from sermons.js -->
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Location & Contact</h4>
+          <ul class="footer-list">
+            <li><i class="ph ph-map-pin"></i> Cucumber Guest House, Saw Mill, Ilorin, Kwara State</li>
+            <li><i class="ph ph-phone"></i> +234 815 447 1308</li>
+            <li><i class="ph ph-phone"></i> +234 803 292 0903</li>
+            <li><i class="ph ph-envelope"></i> info@cjgmmessages.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Compassion of Jesus Global Mission, Ilorin. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="sermons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
