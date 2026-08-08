@@ -415,11 +415,13 @@ body.dark .toast-notification {
   cursor: pointer;
 }
 
+/* 🏷️ NO SCROLLBAR FLEX-WRAP FILTER TAGS (100% Visible All At Once) */
 .filter-tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 4px;
+  align-items: center;
+  padding-top: 4px;
 }
 
 .tag-btn {
@@ -623,6 +625,7 @@ body.dark .toast-notification {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+-webkit-box-orient: vertical;
   overflow: hidden;
 }
 
