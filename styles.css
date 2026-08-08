@@ -256,6 +256,17 @@ body {
   color: var(--brand-red);
 }
 
+.drawer-theme-box {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
 .drawer-footer {
   padding-top: 20px;
   border-top: 1px solid var(--border-color);

@@ -33,12 +33,7 @@
       </a>
 
       <div class="nav-actions">
-        <!-- Light / Dark Mode Toggle Button -->
-        <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light / Dark Mode">
-          <i class="ph ph-moon" id="themeIcon"></i>
-        </button>
-
-        <!-- 🍔 Hamburger Menu Button -->
+        <!-- 🍔 Clean Ultra-Minimal Top Header (Hamburger Menu Only) -->
         <button class="hamburger-btn" onclick="toggleDrawer(true)" title="Open Menu">
           <i class="ph ph-list"></i>
         </button>
@@ -84,6 +79,14 @@
           </a>
         </li>
       </ul>
+
+      <!-- 🌙 Theme Switcher Row Inside Drawer Menu -->
+      <div class="drawer-theme-box">
+        <span><i class="ph ph-moon" id="drawerThemeIcon" style="color: var(--brand-blue)"></i> Dark / Light Mode</span>
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light / Dark Mode">
+          <i class="ph ph-moon" id="themeIcon"></i>
+        </button>
+      </div>
     </div>
 
     <div class="drawer-footer">
