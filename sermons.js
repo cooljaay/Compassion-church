@@ -373,7 +373,7 @@ const sermonsData = [
 const churchDetails = {
   name: "Compassion of Jesus Global Mission",
   location: "Cucumber Guest House, Saw Mill, Ilorin, Kwara State",
-  domain: "cjgmmessages.com",
+  domain: "cjgmilorin.com",
   motto: "Go Ye Into All The World",
   welcomeMessage: "Listen online or download audio messages from Compassion of Jesus Global Mission, Ilorin.",
   serviceTimes: [
@@ -382,5 +382,5 @@ const churchDetails = {
   ],
   address: "Cucumber Guest House, Saw Mill, Ilorin, Kwara State",
   phoneNumbers: ["+234 815 447 1308", "+234 803 292 0903"],
-  contactEmail: "info@cjgmmessages.com"
+  contactEmail: "info@cjgmilorin.com"
 };
