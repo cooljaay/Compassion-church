@@ -12,7 +12,6 @@
 let currentPlayingSermon = null;
 let activeSpeaker = "All";
 let searchQuery = "";
-let sortMode = "date-desc";
 let currentPage = 1;
 const pageSize = 9;
 
@@ -88,16 +87,10 @@ function initThemeSwitcher() {
 }
 
 /**
- * DIRECT INLINE SEARCH & SORT HANDLERS
+ * DIRECT INLINE SEARCH & SPEAKER HANDLERS
  */
 function handleSearch(val) {
   searchQuery = val || "";
-  currentPage = 1;
-  renderSermonGrid();
-}
-
-function handleSort(val) {
-  sortMode = val || "date-desc";
   currentPage = 1;
   renderSermonGrid();
 }
@@ -279,7 +272,7 @@ function renderFeaturedSermon() {
 }
 
 /**
- * 🔍 SERMON GRID FILTER & SORT ENGINE
+ * 🔍 SERMON GRID FILTER & DISPLAY ENGINE (Chronological Recent Uploads)
  */
 function renderSermonGrid() {
   const container = document.getElementById("sermonsGrid");
@@ -307,14 +300,8 @@ function renderSermonGrid() {
     return matchesSpeaker && matchesSearch;
   });
 
-  // Sorting Options: Recent Uploads or A - Z
-  filtered.sort((a, b) => {
-    if (sortMode === "title-asc") {
-      return (a.title || "").localeCompare(b.title || "");
-    } else {
-      return new Date(b.date || "2026-01-01") - new Date(a.date || "2026-01-01");
-    }
-  });
+  // Always Sort Chronologically (Newest Recent Uploads First)
+  filtered.sort((a, b) => new Date(b.date || "2026-01-01") - new Date(a.date || "2026-01-01"));
 
   const totalItems = filtered.length;
 
