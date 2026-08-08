@@ -1,0 +1,8 @@
+{
+  "name": "compassion-church-website",
+  "version": "1.0.0",
+  "description": "Compassion of Jesus Global Mission Audio Library",
+  "scripts": {
+    "test": "node .github/scripts/test-integrity.js"
+  }
+}
