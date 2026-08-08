@@ -1,9 +1,14 @@
 /* ==========================================================================
-   COMPASSION OF JESUS GLOBAL MISSION, ILORIN - AUDIO MESSAGE PLATFORM STYLES
-   Design Aesthetics: Inspired by my.shutter.ng
-   Light Theme: Warm cream (#FFFCF9), Rich Charcoal (#18181B)
-   Dark Theme: Soft Slate Navy (#0F172A), Elevated Cards (#1E293B)
-   Typography: Poppins
+   COMPASSION OF JESUS GLOBAL MISSION, ILORIN - DESIGN SYSTEM & STYLES
+   Design Philosophy: Clean, Modern, Harmonious Hierarchy
+   Shape System:
+     - Pills (border-radius: 9999px): All interactive buttons, badges, inputs, icons
+     - Cards (border-radius: 20px): Structural content containers
+   Color Palette:
+     - Primary Brand: Regal Crimson (#E11D48)
+     - Secondary Accent: Sapphire Blue (#0284C7)
+     - Warm Accent: Kingdom Gold (#D97706)
+     - WhatsApp: (#25D366)
    ========================================================================== */
 
 :root {
@@ -15,7 +20,7 @@
   --text-secondary: #52525b;
   --border-color: #e4e4e7;
   
-  /* Brand Tokens */
+  /* Strictly Curated Brand Tokens (No AI Slop / No Random Gradients) */
   --brand-red: #e11d48;
   --brand-red-hover: #be123c;
   --brand-blue: #0284c7;
@@ -23,22 +28,22 @@
   --brand-gold: #d97706;
   --brand-whatsapp: #25D366;
   
-  /* UI Tokens */
+  /* Strict Uniform Shape Tokens */
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+  
+  /* Elevation & Shadows */
   --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
   --player-shadow: 0 -10px 30px rgba(0, 0, 0, 0.12);
   --transition-speed: 0.25s;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-full: 9999px;
 }
 
-/* Soft, Elegant Dark Mode Palette (Gentle on the eyes, not pitch black) */
+/* Elegant Dark Mode Palette */
 body.dark {
   --bg-primary: #0f172a;        /* Deep slate navy */
   --bg-secondary: #1e293b;      /* Elevated soft card background */
   --bg-tertiary: #334155;       /* Muted input/border background */
-  --text-primary: #f8fafc;      /* Crisp soft white */
+  --text-primary: #f8fafc;      /* Soft white */
   --text-secondary: #94a3b8;    /* Muted slate text */
   --border-color: rgba(255, 255, 255, 0.08);
   --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
@@ -99,21 +104,23 @@ body {
   color: var(--text-primary);
 }
 
+/* 🖼️ FLOATING LOGO (Clean transparent blend without white box card background) */
 .brand-logo-img {
-  height: 64px;
+  height: 56px;
   width: auto;
   object-fit: contain;
-  background-color: #ffffff;
-  padding: 6px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border-color);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+  transition: transform 0.2s ease;
+}
+
+.brand-logo-img:hover {
+  transform: scale(1.04);
 }
 
 .brand-title {
   font-weight: 700;
-  font-size: 1.15rem;
-  line-height: 1.2;
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
@@ -129,13 +136,14 @@ body {
   gap: 12px;
 }
 
+/* UNIFORM PILL SHAPES FOR ALL INTERACTIVE BUTTONS */
 .theme-toggle-btn, .hamburger-btn {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   width: 44px;
   height: 44px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -149,7 +157,7 @@ body {
   border-color: var(--brand-blue);
 }
 
-/* 🍔 HAMBURGER MENU DRAWER */
+/* 🍔 HAMBURGER MENU DRAWER (Rounded Card Radius) */
 .nav-drawer-overlay {
   position: fixed;
   top: 0;
@@ -174,8 +182,8 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 300px;
-  max-width: 82%;
+  width: 310px;
+  max-width: 85%;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border-color);
   z-index: 1900;
@@ -215,10 +223,17 @@ body {
   font-size: 1.6rem;
   color: var(--text-secondary);
   cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .drawer-close-btn:hover {
   color: var(--brand-red);
+  background-color: var(--bg-primary);
 }
 
 .drawer-nav-list {
@@ -233,7 +248,7 @@ body {
   align-items: center;
   gap: 14px;
   padding: 14px 18px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
   color: var(--text-primary);
   text-decoration: none;
   font-weight: 600;
@@ -284,7 +299,7 @@ body {
   background-color: #18181b;
   color: #ffffff;
   padding: 12px 24px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   font-size: 0.88rem;
   font-weight: 600;
@@ -323,31 +338,31 @@ body.dark .toast-notification {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
   margin-bottom: 16px;
 }
 
 .hero-title {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 12px;
 }
 
 .hero-subtitle {
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   color: var(--text-secondary);
   max-width: 680px;
   margin: 0 auto 36px auto;
 }
 
-/* Controls Box (Search, Filter, Sort) */
+/* Controls Box (Search, Filter, Sort) - Uniform Rounded Card Container */
 .controls-card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 20px;
+  border-radius: var(--radius-card);
+  padding: 24px;
   box-shadow: var(--card-shadow);
   margin-bottom: 40px;
 }
@@ -355,19 +370,18 @@ body.dark .toast-notification {
 .controls-top-row {
   display: flex;
   gap: 16px;
-  flex-wrap: wrap;
+  align-items: center;
   margin-bottom: 16px;
 }
 
 .search-box {
   flex: 1;
-  min-width: 280px;
   position: relative;
 }
 
 .search-icon {
   position: absolute;
-  left: 16px;
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-secondary);
@@ -376,8 +390,8 @@ body.dark .toast-notification {
 
 .search-input {
   width: 100%;
-  padding: 14px 16px 14px 48px;
-  border-radius: var(--radius-md);
+  padding: 14px 20px 14px 50px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--border-color);
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -404,8 +418,8 @@ body.dark .toast-notification {
 }
 
 .sort-select {
-  padding: 14px 18px;
-  border-radius: var(--radius-md);
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--border-color);
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -413,9 +427,10 @@ body.dark .toast-notification {
   font-weight: 500;
   outline: none;
   cursor: pointer;
+  appearance: auto;
 }
 
-/* 🏷️ NO SCROLLBAR FLEX-WRAP FILTER TAGS (100% Visible All At Once) */
+/* 🏷️ UNIFORM PILL FILTER TAGS */
 .filter-tags {
   display: flex;
   flex-wrap: wrap;
@@ -428,8 +443,8 @@ body.dark .toast-notification {
   background-color: var(--bg-primary);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
-  padding: 8px 18px;
-  border-radius: var(--radius-full);
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
   font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
@@ -448,11 +463,11 @@ body.dark .toast-notification {
   border-color: var(--brand-red);
 }
 
-/* Featured Sermon Card */
+/* Featured Sermon Card (Uniform Card Radius) */
 .featured-card {
-  background: linear-gradient(135deg, rgba(225, 29, 72, 0.06), rgba(2, 132, 199, 0.06)), var(--bg-secondary);
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   padding: 32px;
   box-shadow: var(--card-shadow);
   margin-bottom: 48px;
@@ -473,13 +488,13 @@ body.dark .toast-notification {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
   width: fit-content;
 }
 
 .featured-title {
-  font-size: 1.75rem;
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
   font-weight: 800;
   line-height: 1.3;
 }
@@ -519,7 +534,7 @@ body.dark .toast-notification {
 }
 
 .section-title {
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -534,15 +549,15 @@ body.dark .toast-notification {
   font-size: 0.85rem;
   color: var(--text-secondary);
   background-color: var(--bg-tertiary);
-  padding: 4px 14px;
-  border-radius: var(--radius-full);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
   font-weight: 500;
 }
 
 /* Main Sermon Cards Grid */
 .sermon-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
   margin-bottom: 36px;
 }
@@ -550,7 +565,7 @@ body.dark .toast-notification {
 .sermon-card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-card);
   padding: 24px;
   box-shadow: var(--card-shadow);
   display: flex;
@@ -582,8 +597,8 @@ body.dark .toast-notification {
   text-transform: uppercase;
   color: var(--brand-blue);
   background-color: rgba(2, 132, 199, 0.08);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
 }
 
 .card-date {
@@ -625,7 +640,6 @@ body.dark .toast-notification {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
--webkit-box-orient: vertical;
   overflow: hidden;
 }
 
@@ -638,7 +652,7 @@ body.dark .toast-notification {
   border-top: 1px solid var(--border-color);
 }
 
-/* 📄 SLEEK PAGINATION CONTROLS STYLES */
+/* 📄 UNIFORM PILL PAGINATION CONTROLS */
 .pagination-container {
   display: flex;
   align-items: center;
@@ -653,8 +667,8 @@ body.dark .toast-notification {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 18px;
-  border-radius: var(--radius-full);
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
@@ -676,9 +690,9 @@ body.dark .toast-notification {
 }
 
 .page-num-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-pill);
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
@@ -703,13 +717,14 @@ body.dark .toast-notification {
   box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
 }
 
-/* Button UI Components */
+/* UNIFORM PILL BUTTON UI COMPONENTS */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 12px 22px;
-  border-radius: var(--radius-full);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -742,8 +757,8 @@ body.dark .toast-notification {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
   background-color: var(--brand-blue);
   color: #ffffff;
   font-size: 0.85rem;
@@ -758,9 +773,9 @@ body.dark .toast-notification {
 }
 
 .btn-download-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
   background-color: rgba(225, 29, 72, 0.1);
   color: var(--brand-red);
   border: none;
@@ -778,9 +793,9 @@ body.dark .toast-notification {
 }
 
 .btn-share-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
   background-color: var(--bg-primary);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
@@ -798,11 +813,11 @@ body.dark .toast-notification {
   transform: scale(1.05);
 }
 
-/* 📍 CHURCH INVITATION CARD */
+/* 📍 CHURCH INVITATION CARD (Uniform Card Radius) */
 .invitation-card {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.08), rgba(225, 29, 72, 0.08)), var(--bg-secondary);
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   padding: 36px 28px;
   text-align: center;
   box-shadow: var(--card-shadow);
@@ -820,13 +835,13 @@ body.dark .toast-notification {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
   margin-bottom: 12px;
 }
 
 .invitation-title {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 3.5vw, 1.5rem);
   font-weight: 800;
   margin-bottom: 8px;
 }
@@ -893,7 +908,7 @@ body.dark .toast-notification {
 .player-icon {
   width: 42px;
   height: 42px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background-color: rgba(2, 132, 199, 0.1);
   color: var(--brand-blue);
   display: flex;
@@ -927,6 +942,9 @@ body.dark .toast-notification {
   font-size: 1.4rem;
   cursor: pointer;
   padding: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -934,6 +952,7 @@ body.dark .toast-notification {
 
 .player-close-btn:hover {
   color: var(--brand-red);
+  background-color: var(--bg-primary);
 }
 
 /* Empty Search Results State */
@@ -943,7 +962,7 @@ body.dark .toast-notification {
   padding: 60px 20px;
   background-color: var(--bg-secondary);
   border: 1px dashed var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
 }
 
 .empty-icon {
@@ -962,7 +981,7 @@ body.dark .toast-notification {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 32px;
   margin-bottom: 40px;
 }
@@ -987,8 +1006,8 @@ body.dark .toast-notification {
   color: var(--brand-blue);
   font-weight: 600;
   font-size: 0.8rem;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
 }
 
 .footer-title {
@@ -1020,4 +1039,72 @@ body.dark .toast-notification {
   text-align: center;
   font-size: 0.85rem;
   color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   📱 RESPONSIVE MEDIA QUERIES (Flawless Mobile, Tablet & Desktop Layouts)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .hero {
+    padding: 32px 0 24px 0;
+  }
+
+  .controls-card {
+    padding: 16px;
+  }
+
+  .controls-top-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .sort-box {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .sort-select {
+    flex: 1;
+  }
+
+  .filter-tags {
+    justify-content: flex-start;
+  }
+
+  .featured-card {
+    padding: 24px 20px;
+  }
+
+  .featured-buttons {
+    flex-direction: column;
+  }
+
+  .featured-buttons .btn {
+    width: 100%;
+  }
+
+  .sermon-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sermon-card {
+    padding: 20px;
+  }
+
+  .player-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .player-audio-elem {
+    width: 100%;
+  }
 }
