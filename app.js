@@ -209,7 +209,7 @@ function renderChurchDetails() {
   const heroSubtitle = document.getElementById("heroSubtitle");
 
   if (brandTitle) brandTitle.textContent = churchDetails.name;
-  if (heroTitle) heroTitle.textContent = "CJGM, Ilorin Messages";
+  if (heroTitle) heroTitle.innerHTML = 'CJGM Ilorin <span style="color: var(--brand-red);">Audio Messages</span>';
   if (heroSubtitle) heroSubtitle.textContent = churchDetails.welcomeMessage;
 
   const serviceList = document.getElementById("serviceTimesList");
