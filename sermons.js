@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-28",
+    title: "Loose Him and Let Him Go",
+    speaker: "Pastor Godwin Adunmo",
+    date: "2026-08-09",
+    formattedDate: "August 9, 2026",
+    category: "Sunday Service",
+    series: "Deliverance & Freedom",
+    scripture: "John 11:44",
+    duration: "45:30",
+    description: "An anointed Sunday sermon on breaking spiritual graveclothes, demonic bondage, and stepping into complete kingdom freedom through the word of command.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Loose_Him_and_Let_Him_Go.mp3",
+    featured: true
+  },
+  {
     id: "sermon-27",
     title: "Peace Be Still",
     speaker: "Pastor Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "48:15",
     description: "A powerful sermon on speaking peace to every storm, turbulent situation, and anxiety through Christ's divine authority.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Peace_Be_Still.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-1",
