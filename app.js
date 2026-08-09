@@ -1,6 +1,8 @@
 /**
  * COMPASSION OF JESUS GLOBAL MISSION, ILORIN - APPLICATION LOGIC
  * Features: 
+ * - Persistent Light/Dark Mode Preference (localStorage)
+ * - Emblem Logo Container Layout
  * - OpenGraph Social Sharing Card Engine
  * - Toast Notification System
  * - Hamburger Navigation Drawer
@@ -57,19 +59,23 @@ function toggleDrawer(open) {
 }
 
 /**
- * LIGHT / DARK MODE THEME SWITCHER
+ * 🌙 PERSISTENT LIGHT / DARK MODE THEME SWITCHER (Saved via localStorage)
  */
 function initThemeSwitcher() {
   const toggleBtn = document.getElementById("themeToggleBtn");
   const themeIcon = document.getElementById("themeIcon");
   const metaThemeColor = document.getElementById("metaThemeColor");
 
-  applyTheme("light");
+  // Read saved theme preference from localStorage (Default to light)
+  const savedTheme = localStorage.getItem("cjgm_theme_preference") || "light";
+  applyTheme(savedTheme);
 
   if (toggleBtn) {
     toggleBtn.addEventListener("click", () => {
       const isDark = document.body.classList.contains("dark");
-      applyTheme(isDark ? "light" : "dark");
+      const nextTheme = isDark ? "light" : "dark";
+      localStorage.setItem("cjgm_theme_preference", nextTheme);
+      applyTheme(nextTheme);
     });
   }
 

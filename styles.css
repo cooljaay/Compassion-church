@@ -20,7 +20,7 @@
   --text-secondary: #52525b;
   --border-color: #e4e4e7;
   
-  /* Strictly Curated Brand Tokens (No AI Slop / No Random Gradients) */
+  /* Strictly Curated Brand Tokens */
   --brand-red: #e11d48;
   --brand-red-hover: #be123c;
   --brand-blue: #0284c7;
@@ -104,17 +104,22 @@ body {
   color: var(--text-primary);
 }
 
-/* 🖼️ FLOATING LOGO (Clean transparent blend without white box card background) */
+/* 🖼️ POLISHED EMBLEM CONTAINER FOR LOGO (Crisp white badge container) */
 .brand-logo-img {
-  height: 56px;
+  height: 60px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
-  transition: transform 0.2s ease;
+  background-color: #ffffff;
+  padding: 6px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .brand-logo-img:hover {
   transform: scale(1.04);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .brand-title {
