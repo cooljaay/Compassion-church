@@ -1,6 +1,7 @@
 /**
  * COMPASSION OF JESUS GLOBAL MISSION, ILORIN - APPLICATION LOGIC
  * Features: 
+ * - Priority Relevance Search Engine (Title & Pastor Matches Ranked First)
  * - Persistent Light/Dark Mode Preference (localStorage)
  * - Emblem Logo Container Layout
  * - OpenGraph Social Sharing Card Engine
@@ -278,7 +279,7 @@ function renderFeaturedSermon() {
 }
 
 /**
- * 🔍 SERMON GRID FILTER & DISPLAY ENGINE (Chronological Recent Uploads)
+ * 🔍 PRIORITY RELEVANCE SEARCH ENGINE (Title & Speaker Matches Highest Priority)
  */
 function renderSermonGrid() {
   const container = document.getElementById("sermonsGrid");
@@ -286,28 +287,71 @@ function renderSermonGrid() {
   if (!container || typeof sermonsData === "undefined") return;
 
   const q = searchQuery.toLowerCase().trim();
+  let filtered = [];
 
-  let filtered = sermonsData.filter(sermon => {
-    const matchesSpeaker = activeSpeaker === "All" || (sermon.speaker || "").includes(activeSpeaker);
+  if (q === "") {
+    filtered = sermonsData.filter(sermon => 
+      activeSpeaker === "All" || (sermon.speaker || "").includes(activeSpeaker)
+    );
+    // Chronological default when search is empty
+    filtered.sort((a, b) => new Date(b.date || "2026-01-01") - new Date(a.date || "2026-01-01"));
+  } else {
+    // Relevance Scoring Engine: Title & Speaker Ranked Highest
+    sermonsData.forEach(sermon => {
+      const matchesSpeakerFilter = activeSpeaker === "All" || (sermon.speaker || "").includes(activeSpeaker);
+      if (!matchesSpeakerFilter) return;
 
-    const titleStr = (sermon.title || "").toLowerCase();
-    const speakerStr = (sermon.speaker || "").toLowerCase();
-    const scriptureStr = (sermon.scripture || "").toLowerCase();
-    const seriesStr = (sermon.series || "").toLowerCase();
-    const descStr = (sermon.description || "").toLowerCase();
+      const titleStr = (sermon.title || "").toLowerCase();
+      const speakerStr = (sermon.speaker || "").toLowerCase();
+      const scriptureStr = (sermon.scripture || "").toLowerCase();
+      const seriesStr = (sermon.series || "").toLowerCase();
+      const descStr = (sermon.description || "").toLowerCase();
 
-    const matchesSearch = q === "" || 
-      titleStr.includes(q) ||
-      speakerStr.includes(q) ||
-      scriptureStr.includes(q) ||
-      seriesStr.includes(q) ||
-      descStr.includes(q);
+      let score = 0;
 
-    return matchesSpeaker && matchesSearch;
-  });
+      // 🥇 TOP PRIORITY: Exact or Partial Title & Pastor Name Matches
+      if (titleStr === q) {
+        score += 100;
+      } else if (titleStr.startsWith(q)) {
+        score += 80;
+      } else if (titleStr.includes(q)) {
+        score += 60;
+      }
 
-  // Always Sort Chronologically (Newest Recent Uploads First)
-  filtered.sort((a, b) => new Date(b.date || "2026-01-01") - new Date(a.date || "2026-01-01"));
+      if (speakerStr === q) {
+        score += 90;
+      } else if (speakerStr.includes(q)) {
+        score += 50;
+      }
+
+      // 🥈 SECONDARY PRIORITY: Scripture & Series Matches
+      if (scriptureStr.includes(q)) {
+        score += 30;
+      }
+      if (seriesStr.includes(q)) {
+        score += 20;
+      }
+
+      // 🥉 TERTIARY PRIORITY: Description Body Matches
+      if (descStr.includes(q)) {
+        score += 10;
+      }
+
+      if (score > 0) {
+        filtered.push({ sermon, score });
+      }
+    });
+
+    // Sort by Relevance Score first (Title/Pastor matches top), then Date
+    filtered.sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return new Date(b.sermon.date || "2026-01-01") - new Date(a.sermon.date || "2026-01-01");
+    });
+
+    filtered = filtered.map(item => item.sermon);
+  }
 
   const totalItems = filtered.length;
 
