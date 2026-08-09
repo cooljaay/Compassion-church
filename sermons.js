@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-27",
+    title: "Peace Be Still",
+    speaker: "Pastor Godwin Adunmo",
+    date: "2026-07-26",
+    formattedDate: "July 26, 2026",
+    category: "Sunday Service",
+    series: "Faith & Deliverance",
+    scripture: "Mark 4:39",
+    duration: "48:15",
+    description: "A powerful sermon on speaking peace to every storm, turbulent situation, and anxiety through Christ's divine authority.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Peace_Be_Still.mp3",
+    featured: true
+  },
+  {
     id: "sermon-1",
     title: "Moving Forward and Upward",
     speaker: "Pastor Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "48:20",
     description: "An inspiring message on pressing forward beyond limitations into God's planned elevation for your life and destiny.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Moving.Forward.and.Upward.by.Pastor.Godwin.Adunmo.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-2",
