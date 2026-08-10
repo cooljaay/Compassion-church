@@ -145,6 +145,11 @@ function getDriveUrls(driveUrl) {
 /**
  * 🎶 FLOATING IN-PAGE AUDIO PLAYER ENGINE
  */
+/**
+ * 🎶 FLOATING IN-PAGE AUDIO PLAYER ENGINE (Custom HTML/JS Controls)
+ */
+let activeAudioElem = null;
+
 function streamOnline(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
   if (!sermon) return;
@@ -158,31 +163,142 @@ function streamOnline(sermonId) {
   playerContainer.innerHTML = `
     <div class="floating-player-bar">
       <div class="player-container">
-        <div class="player-info">
-          <div class="player-icon"><i class="ph ph-waveform"></i></div>
-          <div>
+        
+        <!-- Track Info & Prominent Play/Pause -->
+        <div class="player-info-group">
+          <button class="player-play-btn" id="customPlayPauseBtn" onclick="togglePlayPause()" title="Play / Pause">
+            <i class="ph ph-pause-fill" id="playPauseIcon"></i>
+          </button>
+
+          <div class="player-text-box">
             <div class="player-title">${escapeHtml(sermon.title)}</div>
             <div class="player-speaker">${escapeHtml(sermon.speaker)} • ${escapeHtml(sermon.scripture)}</div>
           </div>
         </div>
 
-        <audio controls autoplay class="player-audio-elem">
-          <source src="${urls.listenTabUrl}" type="audio/mpeg">
-          Your browser does not support the audio player.
-        </audio>
+        <!-- Scrubber Progress Bar -->
+        <div class="player-scrubber-group">
+          <span class="player-time" id="playerCurrentTime">0:00</span>
+          <input 
+            type="range" 
+            id="customPlayerProgress" 
+            class="player-progress-bar" 
+            value="0" 
+            min="0" 
+            max="100" 
+            step="0.1" 
+            oninput="seekAudio(this.value)"
+          >
+          <span class="player-time" id="playerTotalDuration">${escapeHtml(sermon.duration || '0:00')}</span>
+        </div>
 
-        <button onclick="closePlayer()" class="player-close-btn" title="Close Player">
-          <i class="ph ph-x"></i>
-        </button>
+        <!-- Action Controls (Mute, Share, Download, Close) -->
+        <div class="player-actions-group">
+          <button onclick="toggleMute()" class="player-action-btn" title="Mute / Unmute">
+            <i class="ph ph-speaker-high" id="muteIcon"></i>
+          </button>
+          <button onclick="shareSermon('${sermon.id}')" class="player-action-btn" title="Share Sermon on WhatsApp">
+            <i class="ph ph-whatsapp-logo" style="color: var(--brand-whatsapp)"></i>
+          </button>
+          <button onclick="triggerDownload('${sermon.id}')" class="player-action-btn" title="Download MP3">
+            <i class="ph ph-download-simple"></i>
+          </button>
+          <button onclick="closePlayer()" class="player-close-btn" title="Close Player">
+            <i class="ph ph-x"></i>
+          </button>
+        </div>
+
       </div>
     </div>
+    <audio id="activeAudioElement" src="${urls.listenTabUrl}" preload="metadata" autoplay></audio>
   `;
+
+  activeAudioElem = document.getElementById("activeAudioElement");
+
+  if (activeAudioElem) {
+    activeAudioElem.addEventListener("timeupdate", updatePlayerProgress);
+    activeAudioElem.addEventListener("loadedmetadata", onAudioMetadataLoaded);
+    activeAudioElem.addEventListener("play", () => setPlayPauseIcon(true));
+    activeAudioElem.addEventListener("pause", () => setPlayPauseIcon(false));
+    activeAudioElem.addEventListener("ended", () => setPlayPauseIcon(false));
+    
+    // Play automatically
+    activeAudioElem.play().catch(err => {
+      console.log("Autoplay waiting for user interaction:", err);
+      setPlayPauseIcon(false);
+    });
+  }
 
   renderSermonGrid();
   renderFeaturedSermon();
 }
 
+function togglePlayPause() {
+  if (!activeAudioElem) return;
+  if (activeAudioElem.paused) {
+    activeAudioElem.play();
+  } else {
+    activeAudioElem.pause();
+  }
+}
+
+function setPlayPauseIcon(isPlaying) {
+  const icon = document.getElementById("playPauseIcon");
+  if (icon) {
+    icon.className = isPlaying ? "ph ph-pause-fill" : "ph ph-play-fill";
+  }
+}
+
+function updatePlayerProgress() {
+  if (!activeAudioElem) return;
+  const progressInput = document.getElementById("customPlayerProgress");
+  const currentTimeLabel = document.getElementById("playerCurrentTime");
+
+  if (activeAudioElem.duration) {
+    const pct = (activeAudioElem.currentTime / activeAudioElem.duration) * 100;
+    if (progressInput) progressInput.value = pct;
+  }
+
+  if (currentTimeLabel) {
+    currentTimeLabel.textContent = formatTime(activeAudioElem.currentTime);
+  }
+}
+
+function onAudioMetadataLoaded() {
+  if (!activeAudioElem) return;
+  const totalDurationLabel = document.getElementById("playerTotalDuration");
+  if (totalDurationLabel && activeAudioElem.duration) {
+    totalDurationLabel.textContent = formatTime(activeAudioElem.duration);
+  }
+}
+
+function seekAudio(value) {
+  if (!activeAudioElem || !activeAudioElem.duration) return;
+  const seekTo = (value / 100) * activeAudioElem.duration;
+  activeAudioElem.currentTime = seekTo;
+}
+
+function toggleMute() {
+  if (!activeAudioElem) return;
+  activeAudioElem.muted = !activeAudioElem.muted;
+  const icon = document.getElementById("muteIcon");
+  if (icon) {
+    icon.className = activeAudioElem.muted ? "ph ph-speaker-slash" : "ph ph-speaker-high";
+  }
+}
+
+function formatTime(seconds) {
+  if (isNaN(seconds)) return "0:00";
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
 function closePlayer() {
+  if (activeAudioElem) {
+    activeAudioElem.pause();
+    activeAudioElem = null;
+  }
   const playerContainer = document.getElementById("floatingPlayerContainer");
   if (playerContainer) playerContainer.innerHTML = "";
   currentPlayingSermon = null;
