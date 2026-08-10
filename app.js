@@ -143,13 +143,32 @@ function getDriveUrls(driveUrl) {
 }
 
 /**
- * 🎶 FLOATING IN-PAGE AUDIO PLAYER ENGINE
+ * 🎶 FLOATING IN-PAGE AUDIO PLAYER ENGINE (Inline SVG + Persistent Audio Tag)
  */
-/**
- * 🎶 FLOATING IN-PAGE AUDIO PLAYER ENGINE (Custom HTML/JS Controls)
- */
-let activeAudioElem = null;
+let globalAudioElem = null;
 let isUserScrubbing = false;
+
+const SVG_PLAY = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+const SVG_PAUSE = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+const SVG_SPINNER = `<svg class="spin" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="9" stroke-dasharray="36" stroke-linecap="round"/></svg>`;
+
+function getGlobalAudio() {
+  if (!globalAudioElem) {
+    globalAudioElem = document.getElementById("globalAudioPlayer");
+    if (globalAudioElem) {
+      globalAudioElem.addEventListener("timeupdate", updatePlayerProgress);
+      globalAudioElem.addEventListener("loadedmetadata", onAudioMetadataLoaded);
+      globalAudioElem.addEventListener("play", () => setPlayPauseIcon(true));
+      globalAudioElem.addEventListener("pause", () => setPlayPauseIcon(false));
+      globalAudioElem.addEventListener("ended", () => setPlayPauseIcon(false));
+      globalAudioElem.addEventListener("waiting", () => showPlayerBuffering(true));
+      globalAudioElem.addEventListener("stalled", () => showPlayerBuffering(true));
+      globalAudioElem.addEventListener("canplay", () => showPlayerBuffering(false));
+      globalAudioElem.addEventListener("playing", () => showPlayerBuffering(false));
+    }
+  }
+  return globalAudioElem;
+}
 
 function streamOnline(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
@@ -157,6 +176,20 @@ function streamOnline(sermonId) {
 
   currentPlayingSermon = sermon;
   const urls = getDriveUrls(sermon.driveUrl);
+
+  const audio = getGlobalAudio();
+  if (audio) {
+    if (audio.src !== urls.listenTabUrl) {
+      audio.src = urls.listenTabUrl;
+    }
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(err => {
+        console.log("Audio play error:", err);
+        setPlayPauseIcon(false);
+      });
+    }
+  }
 
   const playerContainer = document.getElementById("floatingPlayerContainer");
   if (!playerContainer) return;
@@ -168,7 +201,7 @@ function streamOnline(sermonId) {
         <!-- Track Info & Prominent Play/Pause -->
         <div class="player-info-group">
           <button class="player-play-btn" id="customPlayPauseBtn" onclick="togglePlayPause()" title="Play / Pause">
-            <i class="ph ph-pause-fill" id="playPauseIcon"></i>
+            <span id="playPauseIconSlot">${SVG_PAUSE}</span>
           </button>
 
           <div class="player-text-box">
@@ -179,96 +212,78 @@ function streamOnline(sermonId) {
 
         <!-- Scrubber Progress Bar -->
         <div class="player-scrubber-group">
-          <span class="player-time" id="playerCurrentTime">0:00</span>
+          <span class="player-time" id="playerCurrentTime">${audio ? formatTime(audio.currentTime) : '0:00'}</span>
           <input 
             type="range" 
             id="customPlayerProgress" 
             class="player-progress-bar" 
-            value="0" 
+            value="${audio && audio.duration ? (audio.currentTime / audio.duration) * 100 : 0}" 
             min="0" 
             max="100" 
             step="0.1" 
             oninput="onScrubbing(this.value)"
             onchange="seekAudio(this.value)"
           >
-          <span class="player-time" id="playerTotalDuration">${escapeHtml(sermon.duration || '0:00')}</span>
+          <span class="player-time" id="playerTotalDuration">${escapeHtml(sermon.duration || (audio && audio.duration ? formatTime(audio.duration) : '0:00'))}</span>
         </div>
 
         <!-- Action Controls (Mute, Share, Download, Close) -->
         <div class="player-actions-group">
           <button onclick="toggleMute()" class="player-action-btn" title="Mute / Unmute">
-            <i class="ph ph-speaker-high" id="muteIcon"></i>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.8-1-3.3-2.5-4v8c1.5-.7 2.5-2.2 2.5-4z"/></svg>
           </button>
           <button onclick="shareSermon('${sermon.id}')" class="player-action-btn" title="Share Sermon on WhatsApp">
-            <i class="ph ph-whatsapp-logo" style="color: var(--brand-whatsapp)"></i>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--brand-whatsapp)"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 1 .9-2.9-.2-.3A8 8 0 1 1 12 20zm4.5-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.6 6.6 0 0 1-2.1-1.3 7.3 7.3 0 0 1-1.5-1.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.3-.4a.4.4 0 0 0 0-.4c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3a2.9 2.9 0 0 0-.9 2.1c0 1.2.9 2.4 1 2.6s1.8 2.8 4.4 3.9c.6.3 1.1.4 1.5.5.6.2 1.2.1 1.7.1a2.7 2.7 0 0 0 1.8-1.3c.2-.3.2-.6.2-.7s-.1-.2-.3-.3z"/></svg>
           </button>
           <button onclick="triggerDownload('${sermon.id}')" class="player-action-btn" title="Download MP3">
-            <i class="ph ph-download-simple"></i>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           </button>
           <button onclick="closePlayer()" class="player-close-btn" title="Close Player">
-            <i class="ph ph-x"></i>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg>
           </button>
         </div>
 
       </div>
     </div>
-    <audio id="activeAudioElement" src="${urls.listenTabUrl}" preload="auto" autoplay></audio>
   `;
-
-  activeAudioElem = document.getElementById("activeAudioElement");
-
-  if (activeAudioElem) {
-    activeAudioElem.addEventListener("timeupdate", updatePlayerProgress);
-    activeAudioElem.addEventListener("loadedmetadata", onAudioMetadataLoaded);
-    activeAudioElem.addEventListener("play", () => setPlayPauseIcon(true));
-    activeAudioElem.addEventListener("pause", () => setPlayPauseIcon(false));
-    activeAudioElem.addEventListener("ended", () => setPlayPauseIcon(false));
-    activeAudioElem.addEventListener("waiting", () => showPlayerBuffering(true));
-    activeAudioElem.addEventListener("stalled", () => showPlayerBuffering(true));
-    activeAudioElem.addEventListener("canplay", () => showPlayerBuffering(false));
-    activeAudioElem.addEventListener("playing", () => showPlayerBuffering(false));
-    
-    // Play automatically
-    activeAudioElem.play().catch(err => {
-      console.log("Autoplay waiting for user interaction:", err);
-      setPlayPauseIcon(false);
-    });
-  }
 
   renderSermonGrid();
   renderFeaturedSermon();
 }
 
 function showPlayerBuffering(isBuffering) {
-  const icon = document.getElementById("playPauseIcon");
-  if (!icon) return;
+  const slot = document.getElementById("playPauseIconSlot");
+  if (!slot) return;
+  const audio = getGlobalAudio();
   if (isBuffering) {
-    icon.className = "ph ph-spinner-gap spin";
-  } else if (activeAudioElem) {
-    setPlayPauseIcon(!activeAudioElem.paused);
+    slot.innerHTML = SVG_SPINNER;
+  } else if (audio) {
+    setPlayPauseIcon(!audio.paused);
   }
 }
 
 function togglePlayPause() {
-  if (!activeAudioElem) return;
-  if (activeAudioElem.paused) {
-    activeAudioElem.play();
+  const audio = getGlobalAudio();
+  if (!audio) return;
+  if (audio.paused) {
+    audio.play().catch(e => console.log("Toggle play:", e));
   } else {
-    activeAudioElem.pause();
+    audio.pause();
   }
 }
 
 function setPlayPauseIcon(isPlaying) {
-  const icon = document.getElementById("playPauseIcon");
-  if (icon) {
-    icon.className = isPlaying ? "ph ph-pause-fill" : "ph ph-play-fill";
+  const slot = document.getElementById("playPauseIconSlot");
+  if (slot) {
+    slot.innerHTML = isPlaying ? SVG_PAUSE : SVG_PLAY;
   }
 }
 
 function onScrubbing(value) {
   isUserScrubbing = true;
-  if (!activeAudioElem || !activeAudioElem.duration) return;
-  const seekTo = (value / 100) * activeAudioElem.duration;
+  const audio = getGlobalAudio();
+  if (!audio || !audio.duration) return;
+  const seekTo = (value / 100) * audio.duration;
   const currentTimeLabel = document.getElementById("playerCurrentTime");
   if (currentTimeLabel) {
     currentTimeLabel.textContent = formatTime(seekTo);
@@ -276,46 +291,46 @@ function onScrubbing(value) {
 }
 
 function seekAudio(value) {
-  if (!activeAudioElem || !activeAudioElem.duration) return;
-  const seekTo = (value / 100) * activeAudioElem.duration;
-  activeAudioElem.currentTime = seekTo;
+  const audio = getGlobalAudio();
+  if (!audio || !audio.duration) return;
+  const seekTo = (value / 100) * audio.duration;
+  audio.currentTime = seekTo;
   isUserScrubbing = false;
   
-  if (activeAudioElem.paused) {
-    activeAudioElem.play().catch(e => console.log("Seek play:", e));
+  if (audio.paused) {
+    audio.play().catch(e => console.log("Seek play:", e));
   }
 }
 
 function updatePlayerProgress() {
-  if (!activeAudioElem || isUserScrubbing) return;
+  const audio = getGlobalAudio();
+  if (!audio || isUserScrubbing) return;
   const progressInput = document.getElementById("customPlayerProgress");
   const currentTimeLabel = document.getElementById("playerCurrentTime");
 
-  if (activeAudioElem.duration) {
-    const pct = (activeAudioElem.currentTime / activeAudioElem.duration) * 100;
+  if (audio.duration) {
+    const pct = (audio.currentTime / audio.duration) * 100;
     if (progressInput) progressInput.value = pct;
   }
 
   if (currentTimeLabel) {
-    currentTimeLabel.textContent = formatTime(activeAudioElem.currentTime);
+    currentTimeLabel.textContent = formatTime(audio.currentTime);
   }
 }
 
 function onAudioMetadataLoaded() {
-  if (!activeAudioElem) return;
+  const audio = getGlobalAudio();
+  if (!audio) return;
   const totalDurationLabel = document.getElementById("playerTotalDuration");
-  if (totalDurationLabel && activeAudioElem.duration) {
-    totalDurationLabel.textContent = formatTime(activeAudioElem.duration);
+  if (totalDurationLabel && audio.duration) {
+    totalDurationLabel.textContent = formatTime(audio.duration);
   }
 }
 
 function toggleMute() {
-  if (!activeAudioElem) return;
-  activeAudioElem.muted = !activeAudioElem.muted;
-  const icon = document.getElementById("muteIcon");
-  if (icon) {
-    icon.className = activeAudioElem.muted ? "ph ph-speaker-slash" : "ph ph-speaker-high";
-  }
+  const audio = getGlobalAudio();
+  if (!audio) return;
+  audio.muted = !audio.muted;
 }
 
 function formatTime(seconds) {
@@ -326,9 +341,9 @@ function formatTime(seconds) {
 }
 
 function closePlayer() {
-  if (activeAudioElem) {
-    activeAudioElem.pause();
-    activeAudioElem = null;
+  const audio = getGlobalAudio();
+  if (audio) {
+    audio.pause();
   }
   const playerContainer = document.getElementById("floatingPlayerContainer");
   if (playerContainer) playerContainer.innerHTML = "";
