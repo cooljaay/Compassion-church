@@ -130,9 +130,10 @@ function getDriveUrls(driveUrl) {
 
   if (fileIdMatch && fileIdMatch[1]) {
     const fileId = fileIdMatch[1];
+    const directStreamUrl = `https://docs.google.com/uc?export=download&id=${fileId}`;
     return {
       downloadUrl: `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t`,
-      listenTabUrl: `https://drive.google.com/file/d/${fileId}/view?usp=sharing`
+      listenTabUrl: directStreamUrl
     };
   }
 
