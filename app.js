@@ -212,7 +212,7 @@ function streamOnline(sermonId) {
 
       </div>
     </div>
-    <audio id="activeAudioElement" src="${urls.listenTabUrl}" preload="metadata" autoplay></audio>
+    <audio id="activeAudioElement" src="${urls.listenTabUrl}" preload="auto" crossorigin="anonymous" autoplay></audio>
   `;
 
   activeAudioElem = document.getElementById("activeAudioElement");
