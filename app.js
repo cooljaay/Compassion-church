@@ -149,6 +149,7 @@ function getDriveUrls(driveUrl) {
  * 🎶 FLOATING IN-PAGE AUDIO PLAYER ENGINE (Custom HTML/JS Controls)
  */
 let activeAudioElem = null;
+let isUserScrubbing = false;
 
 function streamOnline(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
@@ -187,7 +188,8 @@ function streamOnline(sermonId) {
             min="0" 
             max="100" 
             step="0.1" 
-            oninput="seekAudio(this.value)"
+            oninput="onScrubbing(this.value)"
+            onchange="seekAudio(this.value)"
           >
           <span class="player-time" id="playerTotalDuration">${escapeHtml(sermon.duration || '0:00')}</span>
         </div>
@@ -221,6 +223,10 @@ function streamOnline(sermonId) {
     activeAudioElem.addEventListener("play", () => setPlayPauseIcon(true));
     activeAudioElem.addEventListener("pause", () => setPlayPauseIcon(false));
     activeAudioElem.addEventListener("ended", () => setPlayPauseIcon(false));
+    activeAudioElem.addEventListener("waiting", () => showPlayerBuffering(true));
+    activeAudioElem.addEventListener("stalled", () => showPlayerBuffering(true));
+    activeAudioElem.addEventListener("canplay", () => showPlayerBuffering(false));
+    activeAudioElem.addEventListener("playing", () => showPlayerBuffering(false));
     
     // Play automatically
     activeAudioElem.play().catch(err => {
@@ -231,6 +237,16 @@ function streamOnline(sermonId) {
 
   renderSermonGrid();
   renderFeaturedSermon();
+}
+
+function showPlayerBuffering(isBuffering) {
+  const icon = document.getElementById("playPauseIcon");
+  if (!icon) return;
+  if (isBuffering) {
+    icon.className = "ph ph-spinner-gap spin";
+  } else if (activeAudioElem) {
+    setPlayPauseIcon(!activeAudioElem.paused);
+  }
 }
 
 function togglePlayPause() {
@@ -249,8 +265,29 @@ function setPlayPauseIcon(isPlaying) {
   }
 }
 
+function onScrubbing(value) {
+  isUserScrubbing = true;
+  if (!activeAudioElem || !activeAudioElem.duration) return;
+  const seekTo = (value / 100) * activeAudioElem.duration;
+  const currentTimeLabel = document.getElementById("playerCurrentTime");
+  if (currentTimeLabel) {
+    currentTimeLabel.textContent = formatTime(seekTo);
+  }
+}
+
+function seekAudio(value) {
+  if (!activeAudioElem || !activeAudioElem.duration) return;
+  const seekTo = (value / 100) * activeAudioElem.duration;
+  activeAudioElem.currentTime = seekTo;
+  isUserScrubbing = false;
+  
+  if (activeAudioElem.paused) {
+    activeAudioElem.play().catch(e => console.log("Seek play:", e));
+  }
+}
+
 function updatePlayerProgress() {
-  if (!activeAudioElem) return;
+  if (!activeAudioElem || isUserScrubbing) return;
   const progressInput = document.getElementById("customPlayerProgress");
   const currentTimeLabel = document.getElementById("playerCurrentTime");
 
@@ -270,12 +307,6 @@ function onAudioMetadataLoaded() {
   if (totalDurationLabel && activeAudioElem.duration) {
     totalDurationLabel.textContent = formatTime(activeAudioElem.duration);
   }
-}
-
-function seekAudio(value) {
-  if (!activeAudioElem || !activeAudioElem.duration) return;
-  const seekTo = (value / 100) * activeAudioElem.duration;
-  activeAudioElem.currentTime = seekTo;
 }
 
 function toggleMute() {
