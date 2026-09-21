@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-29",
+    title: "The Blessedness of Soulwinning",
+    speaker: "Pastor Godwin Adunmo",
+    date: "2026-08-30",
+    formattedDate: "August 30, 2026",
+    category: "Sunday Service",
+    series: "Soulwinning & Kingdom Harvest",
+    scripture: "Proverbs 11:30",
+    duration: "54:23",
+    description: "A powerful Sunday sermon on the divine wisdom, eternal value, and immense spiritual rewards of winning souls into the kingdom of God.",
+    driveUrl: "https://drive.google.com/file/d/1UIz4FsX1bZAtrHXx5Kky2EZ8O8iFpa5O/view?usp=sharing",
+    featured: true
+  },
+  {
     id: "sermon-28",
     title: "Loose Him and Let Him Go",
     speaker: "Pastor Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "45:30",
     description: "An anointed Sunday sermon on breaking spiritual graveclothes, demonic bondage, and stepping into complete kingdom freedom through the word of command.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Loose_Him_and_Let_Him_Go.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-27",
