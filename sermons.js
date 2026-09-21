@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-30",
+    title: "The Unshakeable Anchor",
+    speaker: "Pastor Godwin Adunmo",
+    date: "2026-09-05",
+    formattedDate: "September 5, 2026",
+    category: "Weekly Service",
+    series: "Hope & Divine Steadfastness",
+    scripture: "Hebrews 6:19",
+    duration: "56:57",
+    description: "A soul-lifting message revealing Christ as the sure, steadfast, and unshakeable anchor of our soul amidst life's storms and turbulent seasons.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Unshakeable_Anchor.mp3",
+    featured: true
+  },
+  {
     id: "sermon-29",
     title: "The Blessedness of Soulwinning",
     speaker: "Pastor Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "54:23",
     description: "A powerful Sunday sermon on the divine wisdom, eternal value, and immense spiritual rewards of winning souls into the kingdom of God.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Blessedness_of_Soulwinning.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-28",
