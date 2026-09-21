@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-32",
+    title: "The Pitfalls of Following God Wrongly",
+    speaker: "Pastor Dolapo",
+    date: "2026-09-20",
+    formattedDate: "September 20, 2026",
+    category: "Sunday Service",
+    series: "Spiritual Discernment & Kingdom Alignment",
+    scripture: "Ruth 1:1-19",
+    duration: "58:09",
+    description: "An eye-opening Sunday sermon exploring profound lessons from Ruth on avoiding spiritual blind spots, making God-guided choices, and walking in true alignment with divine purpose.",
+    driveUrl: "https://drive.google.com/file/d/1Z_T6Q51c8gh1sxqSjft3W62xd5tDDhSi/view?usp=sharing",
+    featured: true
+  },
+  {
     id: "sermon-31",
     title: "The Ancient Path",
     speaker: "Minister Gbenga Shogbesan",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "1h 03m",
     description: "A deeply transformative sermon urging believers to seek and walk in the ancient biblical paths of righteousness, holiness, and steadfast faith where true rest is found.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Ancient_Path.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-30",
