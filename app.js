@@ -149,9 +149,9 @@ function getDriveUrls(driveUrl) {
 let globalAudioElem = null;
 let isUserScrubbing = false;
 
-const SVG_PLAY = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
-const SVG_PAUSE = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-const SVG_SPINNER = `<svg class="spin" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="9" stroke-dasharray="36" stroke-linecap="round"/></svg>`;
+const SVG_PLAY = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="display:block;margin-left:1.5px;"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11.5-6.86a1 1 0 0 0 0-1.72L9.5 4.28a1 1 0 0 0-1.5.86z"/></svg>`;
+const SVG_PAUSE = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="display:block;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+const SVG_SPINNER = `<svg class="spin" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" style="display:block;"><circle cx="12" cy="12" r="9" stroke-dasharray="36" stroke-linecap="round"/></svg>`;
 
 function getGlobalAudio() {
   if (!globalAudioElem) {
