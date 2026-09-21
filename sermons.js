@@ -15,7 +15,7 @@ const sermonsData = [
     scripture: "Proverbs 11:30",
     duration: "54:23",
     description: "A powerful Sunday sermon on the divine wisdom, eternal value, and immense spiritual rewards of winning souls into the kingdom of God.",
-    driveUrl: "https://drive.google.com/file/d/1UIz4FsX1bZAtrHXx5Kky2EZ8O8iFpa5O/view?usp=sharing",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Blessedness_of_Soulwinning.mp3",
     featured: true
   },
   {
