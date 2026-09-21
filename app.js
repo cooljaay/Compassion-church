@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
   renderChurchDetails();
   renderFeaturedSermon();
   renderSermonGrid();
+  checkDirectSermonLink();
+});
+
+window.addEventListener("popstate", () => {
+  checkDirectSermonLink();
 });
 
 /**
@@ -178,6 +183,12 @@ function streamOnline(sermonId) {
   currentPlayingSermon = sermon;
   const urls = getDriveUrls(sermon.driveUrl);
 
+  // Update browser address bar query param dynamically & update tab title
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState({ sermonId: sermon.id }, "", `?sermon=${encodeURIComponent(sermon.id)}`);
+  }
+  document.title = `${sermon.title} — ${sermon.speaker} | CJGM Ilorin`;
+
   const audio = getGlobalAudio();
   if (audio) {
     if (audio.src !== urls.listenTabUrl) {
@@ -228,10 +239,13 @@ function streamOnline(sermonId) {
           <span class="player-time" id="playerTotalDuration">${escapeHtml(sermon.duration || (audio && audio.duration ? formatTime(audio.duration) : '0:00'))}</span>
         </div>
 
-        <!-- Action Controls (Mute, Share, Download, Close) -->
+        <!-- Action Controls (Mute, Copy Link, Share WhatsApp, Download, Close) -->
         <div class="player-actions-group">
           <button onclick="toggleMute()" class="player-action-btn" title="Mute / Unmute">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.8-1-3.3-2.5-4v8c1.5-.7 2.5-2.2 2.5-4z"/></svg>
+          </button>
+          <button onclick="copySermonLink('${sermon.id}')" class="player-action-btn" title="Copy Direct Message Link">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
           </button>
           <button onclick="shareSermon('${sermon.id}')" class="player-action-btn" title="Share Sermon on WhatsApp">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--brand-whatsapp)"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 1 .9-2.9-.2-.3A8 8 0 1 1 12 20zm4.5-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.6 6.6 0 0 1-2.1-1.3 7.3 7.3 0 0 1-1.5-1.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.3-.4a.4.4 0 0 0 0-.4c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3a2.9 2.9 0 0 0-.9 2.1c0 1.2.9 2.4 1 2.6s1.8 2.8 4.4 3.9c.6.3 1.1.4 1.5.5.6.2 1.2.1 1.7.1a2.7 2.7 0 0 0 1.8-1.3c.2-.3.2-.6.2-.7s-.1-.2-.3-.3z"/></svg>
@@ -349,22 +363,132 @@ function closePlayer() {
   const playerContainer = document.getElementById("floatingPlayerContainer");
   if (playerContainer) playerContainer.innerHTML = "";
   currentPlayingSermon = null;
+
+  // Revert URL to clean path without query param
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, "", window.location.pathname);
+  }
+  document.title = "CJGM Ilorin Audio Messages | Compassion of Jesus Global Mission (cjgmilorin.com)";
+
   renderSermonGrid();
 }
 
 /**
- * 📲 SHARE SERMON HANDLER (WhatsApp & Copy Link Toast)
+ * 🔗 DIRECT PER-MESSAGE URL HELPERS
+ */
+function getSermonShareUrl(sermonId) {
+  const origin = window.location.origin;
+  const path = window.location.pathname;
+  return `${origin}${path}?sermon=${encodeURIComponent(sermonId)}`;
+}
+
+function findSermonByIdOrSlug(param) {
+  if (!param || typeof sermonsData === "undefined") return null;
+  const clean = decodeURIComponent(param).trim().toLowerCase();
+
+  // 1. Direct ID match (e.g., "sermon-32" or "32")
+  let found = sermonsData.find(s => (s.id || "").toLowerCase() === clean);
+  if (found) return found;
+
+  if (!clean.startsWith("sermon-")) {
+    found = sermonsData.find(s => (s.id || "").toLowerCase() === `sermon-${clean}`);
+    if (found) return found;
+  }
+
+  // 2. Title slug match (e.g., "the-pitfalls-of-following-god-wrongly")
+  found = sermonsData.find(s => {
+    const slug = (s.title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    return slug === clean;
+  });
+  return found || null;
+}
+
+/**
+ * 🔗 DEEP-LINK DIRECT URL AUTO-LOADER
+ * Automatically jumps to, highlights, and streams a sermon when visited via direct URL
+ */
+function checkDirectSermonLink() {
+  if (typeof sermonsData === "undefined" || sermonsData.length === 0) return;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const sermonParam = urlParams.get("sermon") || urlParams.get("id") || urlParams.get("msg") || urlParams.get("s");
+  const hashParam = window.location.hash ? window.location.hash.replace("#", "") : null;
+  const targetIdOrSlug = sermonParam || hashParam;
+
+  if (!targetIdOrSlug) return;
+
+  const sermon = findSermonByIdOrSlug(targetIdOrSlug);
+  if (!sermon) return;
+
+  // Find page index in chronological list
+  const sorted = [...sermonsData].sort((a, b) => new Date(b.date || "2026-01-01") - new Date(a.date || "2026-01-01"));
+  const idx = sorted.findIndex(s => s.id === sermon.id);
+  if (idx !== -1) {
+    currentPage = Math.floor(idx / pageSize) + 1;
+    renderSermonGrid();
+  }
+
+  // Load into player
+  streamOnline(sermon.id);
+
+  // Smooth scroll to the sermon card and trigger vibrant highlight glow
+  setTimeout(() => {
+    const cardElem = document.getElementById(`sermonCard-${sermon.id}`);
+    if (cardElem) {
+      cardElem.scrollIntoView({ behavior: "smooth", block: "center" });
+      cardElem.classList.add("highlight-glow");
+      setTimeout(() => cardElem.classList.remove("highlight-glow"), 3500);
+    }
+  }, 400);
+
+  showToast(`🎧 Loaded: "${sermon.title}"`);
+}
+
+/**
+ * 📋 COPY DIRECT SERMON LINK TO CLIPBOARD
+ */
+function copySermonLink(sermonId) {
+  const sermon = sermonsData.find(s => s.id === sermonId);
+  if (!sermon) return;
+
+  const directUrl = getSermonShareUrl(sermon.id);
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(directUrl).then(() => {
+      showToast("🔗 Direct message link copied to clipboard!");
+    }).catch(() => fallbackCopyText(directUrl));
+  } else {
+    fallbackCopyText(directUrl);
+  }
+}
+
+function fallbackCopyText(text) {
+  const tempInput = document.createElement("input");
+  tempInput.value = text;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  try {
+    document.execCommand("copy");
+    showToast("🔗 Direct message link copied to clipboard!");
+  } catch (err) {
+    showToast("🔗 Link: " + text);
+  }
+  document.body.removeChild(tempInput);
+}
+
+/**
+ * 📲 SHARE SERMON HANDLER (WhatsApp with Direct Link)
  */
 function shareSermon(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
   if (!sermon) return;
 
-  const pageUrl = window.location.href;
-  const shareText = `Listen to this powerful sermon: "${sermon.title}" by ${sermon.speaker} (${sermon.scripture}) on Compassion of Jesus Global Mission Audio Library! 🎧\n\n`;
+  const directUrl = getSermonShareUrl(sermon.id);
+  const shareText = `Listen to this powerful sermon: "${sermon.title}" by ${sermon.speaker} (${sermon.scripture}) on Compassion of Jesus Global Mission Audio Library! 🎧\n\n${directUrl}`;
 
-  showToast("Opening WhatsApp to share sermon...");
+  showToast("Opening WhatsApp to share sermon link...");
 
-  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + pageUrl)}`;
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
   window.open(whatsappUrl, "_blank");
 }
 
@@ -435,6 +559,9 @@ function renderFeaturedSermon() {
         </button>
         <button class="btn btn-share-icon" onclick="shareSermon('${latestSermon.id}')" title="Share Message on WhatsApp">
           <i class="ph ph-whatsapp-logo" style="color: var(--brand-whatsapp); font-size: 1.2rem;"></i>
+        </button>
+        <button class="btn btn-share-icon" onclick="copySermonLink('${latestSermon.id}')" title="Copy Direct Sermon Link">
+          <i class="ph ph-link-simple" style="font-size: 1.2rem;"></i>
         </button>
       </div>
     </div>
@@ -548,7 +675,7 @@ function renderSermonGrid() {
     const isCurrent = currentPlayingSermon && currentPlayingSermon.id === sermon.id;
 
     return `
-      <div class="sermon-card ${isCurrent ? 'active-playing' : ''}">
+      <div class="sermon-card ${isCurrent ? 'active-playing' : ''}" id="sermonCard-${sermon.id}" data-sermon-id="${sermon.id}">
         <div>
           <div class="card-header">
             <span class="card-category">${escapeHtml(sermon.category)}</span>
@@ -569,6 +696,10 @@ function renderSermonGrid() {
           <div style="display: flex; align-items: center; gap: 8px;">
             <button onclick="shareSermon('${sermon.id}')" class="btn-share-icon" title="Share Message on WhatsApp">
               <i class="ph ph-whatsapp-logo" style="color: var(--brand-whatsapp)"></i>
+            </button>
+
+            <button onclick="copySermonLink('${sermon.id}')" class="btn-share-icon" title="Copy Direct Sermon Link">
+              <i class="ph ph-link-simple"></i>
             </button>
 
             <button onclick="triggerDownload('${sermon.id}')" class="btn-download-icon" title="Download MP3 Directly">
