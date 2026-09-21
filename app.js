@@ -183,9 +183,10 @@ function streamOnline(sermonId) {
   currentPlayingSermon = sermon;
   const urls = getDriveUrls(sermon.driveUrl);
 
-  // Update browser address bar query param dynamically & update tab title
+  // Update browser address bar dynamically with the sermon's dedicated SEO slug link & update tab title
+  const slug = generateSlug(sermon.title);
   if (window.history && window.history.replaceState) {
-    window.history.replaceState({ sermonId: sermon.id }, "", `?sermon=${encodeURIComponent(sermon.id)}`);
+    window.history.replaceState({ sermonId: sermon.id }, "", `/sermons/${slug}.html`);
   }
   document.title = `${sermon.title} — ${sermon.speaker} | CJGM Ilorin`;
 
@@ -364,9 +365,9 @@ function closePlayer() {
   if (playerContainer) playerContainer.innerHTML = "";
   currentPlayingSermon = null;
 
-  // Revert URL to clean path without query param
+  // Revert URL to clean path without query param or slug
   if (window.history && window.history.replaceState) {
-    window.history.replaceState(null, "", window.location.pathname);
+    window.history.replaceState(null, "", window.location.pathname.includes("/sermons/") ? "/" : window.location.pathname);
   }
   document.title = "CJGM Ilorin Audio Messages | Compassion of Jesus Global Mission (cjgmilorin.com)";
 
@@ -392,7 +393,7 @@ function getSermonShareUrl(sermonId) {
 
 function findSermonByIdOrSlug(param) {
   if (!param || typeof sermonsData === "undefined") return null;
-  const clean = decodeURIComponent(param).trim().toLowerCase();
+  const clean = decodeURIComponent(param).trim().toLowerCase().replace(".html", "");
 
   // 1. Direct ID match (e.g., "sermon-32" or "32")
   let found = sermonsData.find(s => (s.id || "").toLowerCase() === clean);
@@ -406,7 +407,7 @@ function findSermonByIdOrSlug(param) {
   // 2. Title slug match (e.g., "the-pitfalls-of-following-god-wrongly")
   found = sermonsData.find(s => {
     const slug = generateSlug(s.title);
-    return slug === clean;
+    return slug === clean || clean.includes(slug) || slug.includes(clean);
   });
   return found || null;
 }
@@ -421,8 +422,18 @@ function checkDirectSermonLink() {
   const urlParams = new URLSearchParams(window.location.search);
   const sermonParam = urlParams.get("sermon") || urlParams.get("id") || urlParams.get("msg") || urlParams.get("s");
   const hashParam = window.location.hash ? window.location.hash.replace("#", "") : null;
-  const targetIdOrSlug = sermonParam || hashParam;
+  
+  // Also check pathname if loaded directly from /sermons/slug.html
+  let pathParam = null;
+  const pathSegments = window.location.pathname.split("/").filter(Boolean);
+  if (pathSegments.length > 0) {
+    const lastSeg = pathSegments[pathSegments.length - 1].replace(".html", "");
+    if (lastSeg !== "index" && lastSeg !== "" && lastSeg !== "cjgmilorin.com") {
+      pathParam = lastSeg;
+    }
+  }
 
+  const targetIdOrSlug = sermonParam || hashParam || pathParam;
   if (!targetIdOrSlug) return;
 
   const sermon = findSermonByIdOrSlug(targetIdOrSlug);
@@ -449,37 +460,42 @@ function checkDirectSermonLink() {
     }
   }, 400);
 
-  showToast(`🎧 Loaded: "${sermon.title}"`);
+  showToast(`🎧 Loaded: "${sermon.title}" (${sermon.speaker})`);
 }
 
 /**
  * 📋 COPY DIRECT SERMON LINK TO CLIPBOARD
+ * Formats clipboard text with Sermon Title, Speaker, Scripture, and Direct Link
  */
 function copySermonLink(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
   if (!sermon) return;
 
   const directUrl = getSermonShareUrl(sermon.id);
+  const textToCopy = `*${sermon.title}* — ${sermon.speaker} (${sermon.scripture})\n${directUrl}`;
 
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(directUrl).then(() => {
-      showToast("🔗 Message link with preview copied!");
-    }).catch(() => fallbackCopyText(directUrl));
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      showToast(`🔗 Copied: "${sermon.title}" (${sermon.speaker})`);
+    }).catch(() => fallbackCopyText(textToCopy, sermon.title, sermon.speaker));
   } else {
-    fallbackCopyText(directUrl);
+    fallbackCopyText(textToCopy, sermon.title, sermon.speaker);
   }
 }
 
-function fallbackCopyText(text) {
-  const tempInput = document.createElement("input");
+function fallbackCopyText(text, title, speaker) {
+  const tempInput = document.createElement("textarea");
   tempInput.value = text;
+  tempInput.setAttribute("readonly", "");
+  tempInput.style.position = "absolute";
+  tempInput.style.left = "-9999px";
   document.body.appendChild(tempInput);
   tempInput.select();
   try {
     document.execCommand("copy");
-    showToast("🔗 Message link with preview copied!");
+    showToast(`🔗 Copied: "${title || 'Sermon'}" (${speaker || ''})`);
   } catch (err) {
-    showToast("🔗 Link: " + text);
+    showToast("🔗 Link copied to clipboard!");
   }
   document.body.removeChild(tempInput);
 }
