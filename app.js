@@ -176,7 +176,7 @@ function getGlobalAudio() {
   return globalAudioElem;
 }
 
-function streamOnline(sermonId) {
+function streamOnline(sermonId, autoplay = true) {
   const sermon = sermonsData.find(s => s.id === sermonId);
   if (!sermon) return;
 
@@ -195,17 +195,23 @@ function streamOnline(sermonId) {
     if (audio.src !== urls.listenTabUrl) {
       audio.src = urls.listenTabUrl;
     }
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(err => {
-        console.log("Audio play error:", err);
-        setPlayPauseIcon(false);
-      });
+    if (autoplay) {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log("Audio play error:", err);
+          setPlayPauseIcon(false);
+        });
+      }
+    } else {
+      audio.pause();
     }
   }
 
   const playerContainer = document.getElementById("floatingPlayerContainer");
   if (!playerContainer) return;
+
+  const isActuallyPlaying = audio && !audio.paused && autoplay;
 
   playerContainer.innerHTML = `
     <div class="floating-player-bar">
@@ -214,7 +220,7 @@ function streamOnline(sermonId) {
         <!-- Track Info & Prominent Play/Pause -->
         <div class="player-info-group">
           <button class="player-play-btn" id="customPlayPauseBtn" onclick="togglePlayPause()" title="Play / Pause">
-            <span id="playPauseIconSlot">${SVG_PAUSE}</span>
+            <span id="playPauseIconSlot">${isActuallyPlaying ? SVG_PAUSE : SVG_PLAY}</span>
           </button>
 
           <div class="player-text-box">
@@ -447,8 +453,8 @@ function checkDirectSermonLink() {
     renderSermonGrid();
   }
 
-  // Load into player
-  streamOnline(sermon.id);
+  // Stage player ready for 1-tap listening (respecting mobile browser policies)
+  streamOnline(sermon.id, false);
 
   // Smooth scroll to the sermon card and trigger vibrant highlight glow
   setTimeout(() => {
@@ -460,7 +466,7 @@ function checkDirectSermonLink() {
     }
   }, 400);
 
-  showToast(`🎧 Loaded: "${sermon.title}" (${sermon.speaker})`);
+  showToast(`🎧 Ready: "${sermon.title}" — Tap Play to listen!`);
 }
 
 /**
