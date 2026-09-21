@@ -161,7 +161,7 @@ const sermonsData = [
   {
     id: "sermon-8",
     title: "Jesus The Key That Opens Every Door Through the Manifestation of the Holy Spirit",
-    speaker: "Minister Gbenga Sogbesan",
+    speaker: "Minister Gbenga Shogbesan",
     date: "2026-05-11",
     formattedDate: "May 11, 2026",
     category: "Sunday Service",
