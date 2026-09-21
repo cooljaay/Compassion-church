@@ -15,7 +15,7 @@ const sermonsData = [
     scripture: "Ruth 1:1-19",
     duration: "58:09",
     description: "An eye-opening Sunday sermon exploring profound lessons from Ruth on avoiding spiritual blind spots, making God-guided choices, and walking in true alignment with divine purpose.",
-    driveUrl: "https://drive.google.com/file/d/1Z_T6Q51c8gh1sxqSjft3W62xd5tDDhSi/view?usp=sharing",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Pitfalls_of_Following_God_Wrongly.mp3",
     featured: true
   },
   {
