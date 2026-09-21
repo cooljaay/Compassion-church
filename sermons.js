@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-31",
+    title: "The Ancient Path",
+    speaker: "Minister Gbenga Shogbesan",
+    date: "2026-09-13",
+    formattedDate: "September 13, 2026",
+    category: "Sunday Service",
+    series: "Spiritual Foundations & Righteous Living",
+    scripture: "Jeremiah 6:16",
+    duration: "1h 03m",
+    description: "A deeply transformative sermon urging believers to seek and walk in the ancient biblical paths of righteousness, holiness, and steadfast faith where true rest is found.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Ancient_Path.mp3",
+    featured: true
+  },
+  {
     id: "sermon-30",
     title: "The Unshakeable Anchor",
     speaker: "Pastor Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "56:57",
     description: "A soul-lifting message revealing Christ as the sure, steadfast, and unshakeable anchor of our soul amidst life's storms and turbulent seasons.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Unshakeable_Anchor.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-29",
