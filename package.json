@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Compassion of Jesus Global Mission Audio Library",
   "scripts": {
-    "test": "node .github/scripts/test-integrity.js"
+    "build": "node .github/scripts/generate-pages.js",
+    "test": "node .github/scripts/generate-pages.js && node .github/scripts/test-integrity.js"
   }
 }

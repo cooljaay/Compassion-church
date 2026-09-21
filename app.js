@@ -374,12 +374,20 @@ function closePlayer() {
 }
 
 /**
- * 🔗 DIRECT PER-MESSAGE URL HELPERS
+ * 🔗 DIRECT PER-MESSAGE URL HELPERS (Rich OpenGraph Static Pages)
  */
+function generateSlug(title) {
+  return String(title || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 function getSermonShareUrl(sermonId) {
-  const origin = window.location.origin;
-  const path = window.location.pathname;
-  return `${origin}${path}?sermon=${encodeURIComponent(sermonId)}`;
+  const sermon = sermonsData.find(s => s.id === sermonId);
+  if (!sermon) return window.location.href;
+  const slug = generateSlug(sermon.title);
+  return `${window.location.origin}/sermons/${slug}.html`;
 }
 
 function findSermonByIdOrSlug(param) {
@@ -397,7 +405,7 @@ function findSermonByIdOrSlug(param) {
 
   // 2. Title slug match (e.g., "the-pitfalls-of-following-god-wrongly")
   found = sermonsData.find(s => {
-    const slug = (s.title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const slug = generateSlug(s.title);
     return slug === clean;
   });
   return found || null;
@@ -455,7 +463,7 @@ function copySermonLink(sermonId) {
 
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(directUrl).then(() => {
-      showToast("🔗 Direct message link copied to clipboard!");
+      showToast("🔗 Message link with preview copied!");
     }).catch(() => fallbackCopyText(directUrl));
   } else {
     fallbackCopyText(directUrl);
@@ -469,7 +477,7 @@ function fallbackCopyText(text) {
   tempInput.select();
   try {
     document.execCommand("copy");
-    showToast("🔗 Direct message link copied to clipboard!");
+    showToast("🔗 Message link with preview copied!");
   } catch (err) {
     showToast("🔗 Link: " + text);
   }
@@ -477,16 +485,16 @@ function fallbackCopyText(text) {
 }
 
 /**
- * 📲 SHARE SERMON HANDLER (WhatsApp with Direct Link)
+ * 📲 SHARE SERMON HANDLER (WhatsApp with Rich Preview Link)
  */
 function shareSermon(sermonId) {
   const sermon = sermonsData.find(s => s.id === sermonId);
   if (!sermon) return;
 
   const directUrl = getSermonShareUrl(sermon.id);
-  const shareText = `Listen to this powerful sermon: "${sermon.title}" by ${sermon.speaker} (${sermon.scripture}) on Compassion of Jesus Global Mission Audio Library! 🎧\n\n${directUrl}`;
+  const shareText = `🎧 *${sermon.title}*\n👤 *${sermon.speaker}*\n📖 Scripture: *${sermon.scripture}*\n📅 Date: ${sermon.formattedDate}\n\nListen online & download MP3:\n${directUrl}`;
 
-  showToast("Opening WhatsApp to share sermon link...");
+  showToast("Opening WhatsApp with sermon preview link...");
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
   window.open(whatsappUrl, "_blank");

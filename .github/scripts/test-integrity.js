@@ -60,12 +60,15 @@ console.log("\n📊 [Test 3] Verifying sermons.js Data Schema & Links...");
 let sermonsContent = fs.readFileSync('sermons.js', 'utf8');
 sermonsContent += '\n; this.sermonsData = sermonsData;';
 
+let parsedSermons = [];
+
 try {
   const context = {};
   vm.createContext(context);
   vm.runInContext(sermonsContent, context);
 
   const sermonsData = context.sermonsData;
+  parsedSermons = sermonsData || [];
 
   if (typeof sermonsData !== 'undefined' && Array.isArray(sermonsData)) {
     logPass(`sermonsData array successfully parsed (${sermonsData.length} total sermons).`);
@@ -107,6 +110,37 @@ if (openBraces === closeBraces) {
   logPass(`styles.css curly braces are perfectly balanced (${openBraces} open/close braces).`);
 } else {
   logFail(`styles.css curly brace mismatch! Open: ${openBraces}, Close: ${closeBraces}`);
+}
+
+// 5. OPENGRAPH PREVIEW PAGES VERIFICATION
+console.log("\n🌐 [Test 5] Validating Static OpenGraph Sermon Preview Pages...");
+if (parsedSermons.length > 0) {
+  let pagesOk = true;
+  parsedSermons.forEach(sermon => {
+    const slug = sermon.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const slugFile = path.join('sermons', `${slug}.html`);
+    const idFile = path.join('sermons', `${sermon.id}.html`);
+
+    if (!fs.existsSync(slugFile)) {
+      logFail(`Missing static preview page for slug: '${slugFile}'`);
+      pagesOk = false;
+    } else {
+      const pageHtml = fs.readFileSync(slugFile, 'utf8');
+      if (!pageHtml.includes(sermon.speaker) || !pageHtml.includes(sermon.id)) {
+        logFail(`Preview page '${slugFile}' missing sermon reference!`);
+        pagesOk = false;
+      }
+    }
+
+    if (!fs.existsSync(idFile)) {
+      logFail(`Missing static preview page for ID: '${idFile}'`);
+      pagesOk = false;
+    }
+  });
+
+  if (pagesOk) {
+    logPass(`All ${parsedSermons.length} sermons have verified static OpenGraph preview pages.`);
+  }
 }
 
 console.log("\n==================================================");
