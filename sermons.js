@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-33",
+    title: "Courage for Conquest",
+    speaker: "Pastor (Dr) Godwin Adunmo",
+    date: "2026-09-27",
+    formattedDate: "September 27, 2026",
+    category: "Sunday Service",
+    series: "Faith, Boldness & Divine Victory",
+    scripture: "Joshua 1:1-7",
+    duration: "55:00",
+    description: "A powerful Sunday message inspiring believers to rise with divine courage, conquer spiritual territories, and walk boldly in God's promises of victory and breakthrough.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Courage_for_Conquest.mp3",
+    featured: true
+  },
+  {
     id: "sermon-32",
     title: "The Pitfalls of Following God Wrongly",
     speaker: "Pastor Dolapo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "58:09",
     description: "An eye-opening Sunday sermon exploring profound lessons from Ruth on avoiding spiritual blind spots, making God-guided choices, and walking in true alignment with divine purpose.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Pitfalls_of_Following_God_Wrongly.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-31",
