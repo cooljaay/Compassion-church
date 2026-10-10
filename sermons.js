@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-34",
+    title: "Extolling the God of Harvest",
+    speaker: "Pastor (Dr) Godwin Adunmo",
+    date: "2026-10-04",
+    formattedDate: "October 4, 2026",
+    category: "Sunday Service",
+    series: "Thanksgiving, Praise & Kingdom Harvest",
+    scripture: "Psalm 67:3",
+    duration: "46:18",
+    description: "A profound Sunday message on lifting high praise and sincere adoration to the God of harvest, unlocking divine fruitfulness, supernatural increase, and covenant blessings.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Extolling_the_God_of_Harvest.mp3",
+    featured: true
+  },
+  {
     id: "sermon-33",
     title: "Courage for Conquest",
     speaker: "Pastor (Dr) Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "55:00",
     description: "A powerful Sunday message inspiring believers to rise with divine courage, conquer spiritual territories, and walk boldly in God's promises of victory and breakthrough.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Courage_for_Conquest.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-32",
