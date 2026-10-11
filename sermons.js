@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-35",
+    title: "The Weight of the Glory of God",
+    speaker: "Pastor Dolapo",
+    date: "2026-10-11",
+    formattedDate: "October 11, 2026",
+    category: "Sunday Service",
+    series: "Glory, Eternity & Spiritual Transformation",
+    scripture: "2 Corinthians 4:17 & 18",
+    duration: "51:11",
+    description: "A deeply stirring Sunday message on beholding and walking in the eternal weight of God's glory, transcending momentary light afflictions into divine, everlasting triumph.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Weight_of_the_Glory_of_God.mp3",
+    featured: true
+  },
+  {
     id: "sermon-34",
     title: "Extolling the God of Harvest",
     speaker: "Pastor (Dr) Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "46:18",
     description: "A profound Sunday message on lifting high praise and sincere adoration to the God of harvest, unlocking divine fruitfulness, supernatural increase, and covenant blessings.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Extolling_the_God_of_Harvest.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-33",
