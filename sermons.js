@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-36",
+    title: "The Lord is My Shepherd",
+    speaker: "Pastor (Dr) Godwin Adunmo",
+    date: "2026-10-18",
+    formattedDate: "October 18, 2026",
+    category: "Sunday Service",
+    series: "Divine Guidance, Provision & Protection",
+    scripture: "Psalm 23",
+    duration: "28:31",
+    description: "An uplifting Sunday message expounding on the divine guidance, supernatural provision, abiding peace, and unfailing protection found in making the Lord our personal Shepherd.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Lord_is_My_Shepherd.mp3",
+    featured: true
+  },
+  {
     id: "sermon-35",
     title: "The Weight of the Glory of God",
     speaker: "Pastor Dolapo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "51:11",
     description: "A deeply stirring Sunday message on beholding and walking in the eternal weight of God's glory, transcending momentary light afflictions into divine, everlasting triumph.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Weight_of_the_Glory_of_God.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-34",
