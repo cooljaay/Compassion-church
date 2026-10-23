@@ -5,6 +5,34 @@
 
 const sermonsData = [
   {
+    id: "sermon-38",
+    title: "Day 2: Engaging the Supernatural for Exceptional Exploits",
+    speaker: "Pastor Joshua Ogunniyi & Pastor (Dr) Godwin Adunmo",
+    date: "2026-10-23",
+    formattedDate: "October 23, 2026",
+    category: "Word Conference",
+    series: "Engaging the Supernatural for Exceptional Exploits",
+    scripture: "Daniel 11:32",
+    duration: "1h 49m",
+    description: "Annual Word Conference Day 2 message ministered by Pastor Joshua Ogunniyi on activating supernatural power for kingdom exploits, with closing exhortation and prayers by Pastor (Dr) Godwin Adunmo.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Day2_Engaging_the_Supernatural_for_Exceptional_Exploits.mp3",
+    featured: true
+  },
+  {
+    id: "sermon-37",
+    title: "Day 1: Pathway to Supernatural and Exceptional Exploits",
+    speaker: "Pastor Shalom Sign Adalumo & Pastor (Dr) Godwin Adunmo",
+    date: "2026-10-22",
+    formattedDate: "October 22, 2026",
+    category: "Word Conference",
+    series: "Engaging the Supernatural for Exceptional Exploits",
+    scripture: "Daniel 11:32",
+    duration: "1h 53m",
+    description: "Annual Word Conference Day 1 opening ministration by Pastor Shalom Sign Adalumo unveiling the divine pathways to supernatural exploits, followed by closing exhortation by Pastor (Dr) Godwin Adunmo.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Day1_Pathway_to_Supernatural_and_Exceptional_Exploits.mp3",
+    featured: false
+  },
+  {
     id: "sermon-36",
     title: "The Lord is My Shepherd",
     speaker: "Pastor (Dr) Godwin Adunmo",
@@ -16,7 +44,7 @@ const sermonsData = [
     duration: "28:31",
     description: "An uplifting Sunday message expounding on the divine guidance, supernatural provision, abiding peace, and unfailing protection found in making the Lord our personal Shepherd.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/The_Lord_is_My_Shepherd.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-35",

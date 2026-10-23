@@ -126,7 +126,8 @@ if (parsedSermons.length > 0) {
       pagesOk = false;
     } else {
       const pageHtml = fs.readFileSync(slugFile, 'utf8');
-      if (!pageHtml.includes(sermon.speaker) || !pageHtml.includes(sermon.id)) {
+      const escapedSpeaker = sermon.speaker.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      if ((!pageHtml.includes(sermon.speaker) && !pageHtml.includes(escapedSpeaker)) || !pageHtml.includes(sermon.id)) {
         logFail(`Preview page '${slugFile}' missing sermon reference!`);
         pagesOk = false;
       }
