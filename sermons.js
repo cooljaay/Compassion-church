@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-39",
+    title: "Day 3: Walking in the Supernatural",
+    speaker: "Pastor (Dr) Godwin Adunmo",
+    date: "2026-10-24",
+    formattedDate: "October 24, 2026",
+    category: "Word Conference",
+    series: "Engaging the Supernatural for Exceptional Exploits",
+    scripture: "Joel 2:28-30",
+    duration: "1h 36m",
+    description: "Annual Word Conference Day 3 grand finale ministration by Pastor (Dr) Godwin Adunmo on living and walking continually in the supernatural power of the Holy Spirit.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Day3_Walking_in_the_Supernatural.mp3",
+    featured: true
+  },
+  {
     id: "sermon-38",
     title: "Day 2: Engaging the Supernatural for Exceptional Exploits",
     speaker: "Pastor Joshua Ogunniyi & Pastor (Dr) Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "1h 49m",
     description: "Annual Word Conference Day 2 message ministered by Pastor Joshua Ogunniyi on activating supernatural power for kingdom exploits, with closing exhortation and prayers by Pastor (Dr) Godwin Adunmo.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Day2_Engaging_the_Supernatural_for_Exceptional_Exploits.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-37",
