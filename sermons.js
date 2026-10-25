@@ -5,6 +5,34 @@
 
 const sermonsData = [
   {
+    id: "sermon-41",
+    title: "Walking in the Supernatural (Part 2)",
+    speaker: "Pastor (Dr) Godwin Adunmo",
+    date: "2026-10-25",
+    formattedDate: "October 25, 2026",
+    category: "Sunday Service",
+    series: "Walking in the Supernatural & Impartation",
+    scripture: "Joel 2:28",
+    duration: "1h 14m",
+    description: "A transformative Sunday Impartation Service message exploring deeper dimensions of the Holy Spirit, supernatural living, and divine empowerment.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Walking_in_the_Supernatural_Part_2.mp3",
+    featured: true
+  },
+  {
+    id: "sermon-40",
+    title: "Transition from Natural to Supernatural",
+    speaker: "Minister Gbenga Shogbesan",
+    date: "2026-10-25",
+    formattedDate: "October 25, 2026",
+    category: "Sunday Service",
+    series: "Spiritual Transition & Kingdom Elevation",
+    scripture: "1 Corinthians 2:14",
+    duration: "26:44",
+    description: "An eye-opening Sunday first message on discerning the deep things of God, leaving behind carnal limitations, and stepping into supernatural realities.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Transition_from_Natural_to_Supernatural.mp3",
+    featured: false
+  },
+  {
     id: "sermon-39",
     title: "Day 3: Walking in the Supernatural",
     speaker: "Pastor (Dr) Godwin Adunmo",
@@ -16,7 +44,7 @@ const sermonsData = [
     duration: "1h 36m",
     description: "Annual Word Conference Day 3 grand finale ministration by Pastor (Dr) Godwin Adunmo on living and walking continually in the supernatural power of the Holy Spirit.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Day3_Walking_in_the_Supernatural.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-38",
