@@ -5,6 +5,35 @@
 
 const sermonsData = [
   {
+    id: "sermon-43",
+    title: "Breaking the Yoke of Stagnation (Part 2)",
+    speaker: "Pastor (Dr) Godwin Adunmo",
+    date: "2026-11-08",
+    formattedDate: "November 8, 2026",
+    category: "Sunday Service",
+    series: "Breaking the Yoke of Stagnation & Divine Acceleration",
+    scripture: "2 Kings 7:1-7",
+    duration: "51:04",
+    description: "A prophetic Sunday message revealing how God turns scarcity into supernatural abundance and breaks every lingering yoke of stagnation and delay.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Breaking_the_Yoke_of_Stagnation_Part_2.mp3",
+    featured: true
+  },
+  {
+    id: "sermon-42",
+    title: "Breaking the Yoke of Stagnation (Part 1)",
+    speaker: "Pastor (Dr) Godwin Adunmo",
+    date: "2026-11-01",
+    formattedDate: "November 1, 2026",
+    category: "Sunday Service",
+    series: "Breaking the Yoke of Stagnation & Divine Acceleration",
+    scripture: "Deuteronomy 1:6-7",
+    duration: "1h 02m",
+    description: "A powerful Sunday message challenging believers to arise, break free from spiritual and physical stagnation, and advance boldly into God's promised inheritance.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Breaking_the_Yoke_of_Stagnation_Part_1.mp3",
+    featured: false
+  },
+
+  {
     id: "sermon-41",
     title: "Walking in the Supernatural (Part 2)",
     speaker: "Pastor (Dr) Godwin Adunmo",
@@ -16,7 +45,7 @@ const sermonsData = [
     duration: "1h 14m",
     description: "A transformative Sunday Impartation Service message exploring deeper dimensions of the Holy Spirit, supernatural living, and divine empowerment.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Walking_in_the_Supernatural_Part_2.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-40",
