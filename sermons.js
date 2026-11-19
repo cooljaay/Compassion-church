@@ -5,6 +5,20 @@
 
 const sermonsData = [
   {
+    id: "sermon-44",
+    title: "Dealing with Satanic Strategies",
+    speaker: "Minister Gbenga Shogbesan",
+    date: "2026-11-15",
+    formattedDate: "November 15, 2026",
+    category: "Sunday Service",
+    series: "Spiritual Warfare & Victory in Christ",
+    scripture: "Isaiah 14:12, 1 Peter 5:8",
+    duration: "54:49",
+    description: "An insightful Sunday service message uncovering the schemes of the adversary and equipping believers with biblical strategies for spiritual alertness and total victory.",
+    driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Dealing_with_Satanic_Strategies.mp3",
+    featured: true
+  },
+  {
     id: "sermon-43",
     title: "Breaking the Yoke of Stagnation (Part 2)",
     speaker: "Pastor (Dr) Godwin Adunmo",
@@ -16,7 +30,7 @@ const sermonsData = [
     duration: "51:04",
     description: "A prophetic Sunday message revealing how God turns scarcity into supernatural abundance and breaks every lingering yoke of stagnation and delay.",
     driveUrl: "https://github.com/cooljaay/Compassion-church/releases/download/v1.0.0/Breaking_the_Yoke_of_Stagnation_Part_2.mp3",
-    featured: true
+    featured: false
   },
   {
     id: "sermon-42",
